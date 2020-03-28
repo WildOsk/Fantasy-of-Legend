@@ -270,6 +270,15 @@ values  ("CABOCHARD","TOP",1,10),
         ("XANI","JUNGLE",1,10),
         ("DUKE/MEPHISTO","COACH",1,10);
 
+create or replace view num_posiciones
+as select count(posicion) as "Total de supports", 
+(select count(posicion) from jugador where posicion="ADC") as "Total de adcs",
+(select count(posicion) from jugador where posicion="JUNGLE") as "Total de junglas",
+(select count(posicion) from jugador where posicion="MID") as "Total de mids",
+(select count(posicion) from jugador where posicion="TOP") as "Total de tops",
+(select count(posicion) from jugador where posicion="COACH") as "Total de coachs"FROM jugador where posicion ="SUPPORT";
+
+SELECT * from num_posiciones;
 
 
 
