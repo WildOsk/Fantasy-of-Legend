@@ -1,11 +1,11 @@
-#DROP DATABASE FantasyBD;
+DROP DATABASE FantasyBD;
 create database FantasyBD;
 USE FantasyBD;
 
 create table if not exists equipo(
  id int not null auto_increment primary key,
  nombre varchar(40) not null,
- logo varchar (100) not null
+ logo varchar(100) 
 );
 
 create table if not exists jugador(
@@ -128,7 +128,7 @@ values("EXCEL",""),
 ("ROGUE",""),
 ("SCHALKE 04",""),
 ("SK",""),
-("SCHALKE 04",""),
+("MAD LIONS",""),
 ("VITALITY","");
 
 
