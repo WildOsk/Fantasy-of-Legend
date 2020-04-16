@@ -5,7 +5,7 @@ USE FantasyBD;
 create table if not exists equipo(
  id int not null auto_increment primary key,
  nombre varchar(40) not null,
- logo varchar(100) 
+ logo varchar(1000) 
 );
 
 create table if not exists jugador(
@@ -19,9 +19,7 @@ create table if not exists jugador(
 
 create table if not exists jornada(
  id int not null auto_increment primary key,
- fecha timestamp default current_timestamp
- 
- 
+ fecha timestamp
 );
 
 create table if not exists partido(
@@ -122,7 +120,7 @@ create table if not exists subasta(
 INSERT INTO equipo (nombre,logo)
 values("EXCEL",""),
 ("FNATIC",""),
-("G2",""),
+("G2","https://3hmd7z41jo8fr2m9o2xkrln5-wpengine.netdna-ssl.com/wp-content/uploads/G2-Esports-2020-Logo-1.png"),
 ("MISFITS",""),
 ("ORIGEN",""),
 ("ROGUE",""),
