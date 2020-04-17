@@ -30,8 +30,7 @@ public class Jornada implements Serializable{
 	public Jornada(){
 	}
 	
-	public Jornada(int id, Date fecha) {
-		super();
+	public Jornada(int id, Date fecha) {;
 		this.id = id;
 		this.fecha = fecha;
 	}

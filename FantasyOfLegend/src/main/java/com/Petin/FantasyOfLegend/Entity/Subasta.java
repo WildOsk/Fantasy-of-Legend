@@ -34,5 +34,9 @@ public class Subasta {
 	@ManyToOne
 	@JoinColumn(name="fk_usuario")
 	private Usuario usuario;
+	
+	@ManyToOne
+	@JoinColumn(name="fk_jugador_subastado")
+	private Jugador jugador;
 
 }

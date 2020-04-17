@@ -1,12 +1,15 @@
 package com.Petin.FantasyOfLegend.Entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -52,5 +55,12 @@ public class Usuario implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="fk_liga")
 	private Liga liga;
+	
+	@OneToMany(mappedBy="Subasta", cascade=CascadeType.ALL)
+	private Set<Subasta> subastas;
+	
+	
+	
+	
 
 }

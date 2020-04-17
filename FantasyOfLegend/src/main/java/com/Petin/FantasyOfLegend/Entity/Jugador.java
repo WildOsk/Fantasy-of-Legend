@@ -1,6 +1,8 @@
 package com.Petin.FantasyOfLegend.Entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -33,6 +35,20 @@ public class Jugador implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="fk_equipo")
 	private Equipo equipo;
+	
+	@ManyToMany(cascade = {CascadeType.ALL},mappedBy="jugadores")
+	private Set<Puntuacion> puntuaciones=new HashSet<>();
+	
+	@OneToMany(mappedBy="Subasta", cascade=CascadeType.ALL)
+	private Set<Subasta> subastas;
+
+	public Jugador() {
+		
+	}
+	
+	
+	
+	
 	
 	
 	

@@ -31,7 +31,6 @@ public class Equipo implements Serializable{
 	public Equipo() {}
 	
 	public Equipo(int id, String nombre, String logo) {
-		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.logo = logo;

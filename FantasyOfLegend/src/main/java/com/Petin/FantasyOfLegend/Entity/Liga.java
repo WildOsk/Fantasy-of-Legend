@@ -36,7 +36,6 @@ public class Liga implements Serializable{
 	}
 
 	public Liga(int id, String nombre, String descripcion) {
-		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
