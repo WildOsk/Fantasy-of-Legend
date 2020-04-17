@@ -57,7 +57,7 @@ create table if not exists liga(
 create table if not exists usuario(
  id int not null auto_increment primary key,
  nombre varchar(100) not null,
- apellido varchar(100) not null ,
+ apellido varchar(100) not null,
  correo varchar(100) not null,
  alias varchar(100) not null ,
  contrasena varchar(100) not null,

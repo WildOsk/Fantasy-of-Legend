@@ -2,12 +2,15 @@ package com.Petin.FantasyOfLegend.Entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +23,9 @@ public class Jornada implements Serializable{
 	private int id;
 	@Column(name="fecha")
 	private Date fecha;
+	
+	@OneToMany(mappedBy="Partido", cascade=CascadeType.ALL)
+	private Set<Partido> partidos;
 	
 	public Jornada(){
 	}
