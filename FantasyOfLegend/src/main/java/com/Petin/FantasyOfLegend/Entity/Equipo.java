@@ -55,5 +55,13 @@ public class Equipo implements Serializable{
 	}
 	
 	private static final long serialVersionUID = 1L;
+
+	@Override
+	public String toString() {
+		return "Equipo [id=" + id + ", nombre=" + nombre + ", logo=" + logo + ", jugadores=" + jugadores + "]";
+	}
+	
+	
+	
 	
 }

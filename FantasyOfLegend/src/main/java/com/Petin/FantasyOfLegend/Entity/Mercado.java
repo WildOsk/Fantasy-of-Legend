@@ -37,5 +37,82 @@ public class Mercado implements Serializable {
 	
 	
 
+	public Mercado() {
+	
+	}
+
+
+
+	public Mercado(int id, int fk_liga) {
+		super();
+		this.id = id;
+		this.fk_liga = fk_liga;
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	public int getFk_liga() {
+		return fk_liga;
+	}
+
+
+
+	public void setFk_liga(int fk_liga) {
+		this.fk_liga = fk_liga;
+	}
+
+
+
+	public Liga getLiga() {
+		return liga;
+	}
+
+
+
+	public void setLiga(Liga liga) {
+		this.liga = liga;
+	}
+
+
+
+	public Set<Subasta> getSubastas() {
+		return subastas;
+	}
+
+
+
+	public void setSubastas(Set<Subasta> subastas) {
+		this.subastas = subastas;
+	}
+
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Mercado [id=" + id + ", fk_liga=" + fk_liga + ", liga=" + liga + ", subastas=" + subastas + "]";
+	}
+	
+	
+	
+	
+
 
 }

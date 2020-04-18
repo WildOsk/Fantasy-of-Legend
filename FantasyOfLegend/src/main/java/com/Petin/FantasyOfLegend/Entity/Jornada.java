@@ -52,4 +52,11 @@ public class Jornada implements Serializable{
 	}
 
 	private static final long serialVersionUID = 1L;
+
+	@Override
+	public String toString() {
+		return "Jornada [id=" + id + ", fecha=" + fecha + ", partidos=" + partidos + "]";
+	}
+	
+	
 }
