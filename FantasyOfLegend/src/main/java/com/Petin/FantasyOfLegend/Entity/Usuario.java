@@ -52,14 +52,14 @@ public class Usuario implements Serializable {
 	@Column(name="suma_puntuacion")
 	private int suma_puntuacion;
 	
-	@Column(name="fk_liga")
+	@Column(name="fk_liga",insertable = false, updatable = false)
 	private int fk_liga;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_liga")
 	private Liga liga;
 	
-	@OneToMany(mappedBy="Subasta", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
 	private Set<Subasta> subastas;
 	
 	@ManyToMany(cascade = {CascadeType.ALL})

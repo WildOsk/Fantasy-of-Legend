@@ -24,7 +24,7 @@ public class Jornada implements Serializable{
 	@Column(name="fecha")
 	private Date fecha;
 	
-	@OneToMany(mappedBy="Partido", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="fk_jornada", cascade=CascadeType.ALL)
 	private Set<Partido> partidos;
 	
 	public Jornada(){

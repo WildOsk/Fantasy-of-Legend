@@ -39,10 +39,10 @@ public class Partido implements Serializable {
 	
 	
 	@ManyToOne
-	@JoinColumn(name="fk_jornada")
+	@JoinColumn(name="fk_jornada",insertable = false, updatable = false)
 	private Jornada jornada;
 	
-	@OneToMany(mappedBy="Puntuacion", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="partido", cascade=CascadeType.ALL)
 	private Set<Puntuacion> puntuaciones;
 
 	public Partido() {

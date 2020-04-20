@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -26,10 +28,11 @@ public class Liga implements Serializable{
 	private String descripcion;
 	
 	
-	@OneToMany(mappedBy="Mercado", cascade=CascadeType.ALL)
-	private Set<Mercado> mercados;
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Mercado mercado;
 	
-	@OneToMany(mappedBy="Usuario", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="liga", cascade=CascadeType.ALL)
 	private Set<Usuario> usuarios;
 	
 	public Liga() {
@@ -67,11 +70,7 @@ public class Liga implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	@Override
-	public String toString() {
-		return "Liga [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", mercados=" + mercados
-				+ ", usuarios=" + usuarios + "]";
-	}
+	
 	
 	
 	

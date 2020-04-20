@@ -25,7 +25,7 @@ public class Equipo implements Serializable{
 	@Column(name="logo")
 	private String logo;
 	
-	@OneToMany(mappedBy="Jugador", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="equipo", cascade=CascadeType.ALL)
 	private Set<Jugador> jugadores;
 	
 	public Equipo() {}
@@ -55,13 +55,4 @@ public class Equipo implements Serializable{
 	}
 	
 	private static final long serialVersionUID = 1L;
-
-	@Override
-	public String toString() {
-		return "Equipo [id=" + id + ", nombre=" + nombre + ", logo=" + logo + ", jugadores=" + jugadores + "]";
-	}
-	
-	
-	
-	
 }

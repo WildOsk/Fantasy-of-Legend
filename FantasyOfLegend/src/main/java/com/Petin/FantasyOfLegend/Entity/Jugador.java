@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="Jugador")
 public class Jugador implements Serializable {
@@ -28,24 +30,24 @@ public class Jugador implements Serializable {
 	@Column(name="precio")
 	private int precio;
 	
-	@Column(name="fk_equipo")
-	private int fk_equipo;
-	
-	
 	@ManyToOne
-	@JoinColumn(name="fk_equipo")
+	@JoinColumn(name="fk_equipo", insertable = false, updatable = false)
 	private Equipo equipo;
 	
+	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.ALL},mappedBy="jugadores")
 	private Set<Puntuacion> puntuaciones=new HashSet<>();
 	
+	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.ALL},mappedBy="jugadores_roster_usuario")
 	private Set<Usuario> jugadores_roster_usuario=new HashSet<>();
 	
+	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.ALL},mappedBy="rosterFinal_usuario")
 	private Set<Usuario> rosterFinal_usuario=new HashSet<>();
 	
-	@OneToMany(mappedBy="Subasta", cascade=CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(mappedBy="fk_jugador_subastado", cascade=CascadeType.ALL)
 	private Set<Subasta> subastas;
 
 	public Jugador() {
@@ -54,13 +56,13 @@ public class Jugador implements Serializable {
 	
 	
 
-	public Jugador(int id, String nombre, String posicion, int precio, int fk_equipo) {
+	public Jugador(int id, String nombre, String posicion, int precio, Equipo equipo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.posicion = posicion;
 		this.precio = precio;
-		this.fk_equipo = fk_equipo;
+		this.equipo = equipo;
 	}
 
 
@@ -97,12 +99,12 @@ public class Jugador implements Serializable {
 		this.precio = precio;
 	}
 
-	public int getFk_equipo() {
-		return fk_equipo;
+	public Equipo getFk_equipo() {
+		return equipo;
 	}
 
-	public void setFk_equipo(int fk_equipo) {
-		this.fk_equipo = fk_equipo;
+	public void setFk_equipo(Equipo equipo) {
+		this.equipo = equipo;
 	}
 
 	public Equipo getEquipo() {
@@ -154,15 +156,6 @@ public class Jugador implements Serializable {
 
 	public void setRosterFinal_usuario(Set<Usuario> rosterFinal_usuario) {
 		this.rosterFinal_usuario = rosterFinal_usuario;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "Jugador [id=" + id + ", nombre=" + nombre + ", posicion=" + posicion + ", precio=" + precio
-				+ ", fk_equipo=" + fk_equipo + ", equipo=" + equipo + ", puntuaciones=" + puntuaciones + ", subastas="
-				+ subastas + "]";
 	}
 	
 	

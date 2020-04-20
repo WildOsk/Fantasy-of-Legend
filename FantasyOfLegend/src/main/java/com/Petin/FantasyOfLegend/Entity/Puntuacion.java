@@ -34,7 +34,7 @@ public class Puntuacion implements Serializable {
 	private int fk_partido;
 	
 	@ManyToOne
-	@JoinColumn(name="fk_partido")
+	@JoinColumn(name="fk_partido",insertable = false, updatable = false)
 	private Partido partido;
 	
 	 @ManyToMany(cascade = {CascadeType.ALL})

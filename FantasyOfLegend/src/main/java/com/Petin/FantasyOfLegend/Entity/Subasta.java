@@ -18,13 +18,13 @@ public class Subasta {
 	@Column(name="dinero_ofrecido")
 	private int dinero_ofrecido;
 	
-	@Column(name="fk_jugador_subastado")
+	@Column(name="fk_jugador_subastado", insertable = false, updatable = false)
 	private int fk_jugador_subastado;
 	
-	@Column(name="fk_usuario")
+	@Column(name="fk_usuario",insertable = false, updatable = false)
 	private int fk_usuario;
 	
-	@Column(name="fk_mercado")
+	@Column(name="fk_mercado", insertable = false, updatable = false)
 	private int fk_mercado;
 	
 	@ManyToOne

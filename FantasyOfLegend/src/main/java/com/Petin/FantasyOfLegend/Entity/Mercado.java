@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -28,11 +30,11 @@ public class Mercado implements Serializable {
 	@Column(name="fk_liga")
 	private int fk_liga;
 	
-	@ManyToOne
-	@JoinColumn(name="fk_liga")
-	private Liga liga;
+	@OneToOne(cascade=CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Liga liga;
 	
-	@OneToMany(mappedBy="Subasta", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="mercado", cascade=CascadeType.ALL)
 	private Set<Subasta> subastas;
 	
 	
