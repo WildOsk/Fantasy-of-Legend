@@ -58,6 +58,7 @@ create table if not exists usuario(
  id int not null auto_increment primary key,
  nombre varchar(100) not null,
  apellido varchar(100) not null,
+ rol varchar(100) not null default "otakus",
  correo varchar(100) not null,
  alias varchar(100) not null ,
  contrasena varchar(100) not null,
@@ -118,16 +119,16 @@ create table if not exists subasta(
 
 #INSERTS DE EQUIPOS EN LA TABLA EQUIPOS
 INSERT INTO equipo (nombre,logo)
-values("EXCEL",""),
-("FNATIC",""),
+values("EXCEL","https://gamepedia.cursecdn.com/lolesports_gamepedia_en/8/85/Excel_Esportslogo_profile.png"),
+("FNATIC","https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/f/fc/Fnaticlogo_square.png/1200px-Fnaticlogo_square.png"),
 ("G2","https://3hmd7z41jo8fr2m9o2xkrln5-wpengine.netdna-ssl.com/wp-content/uploads/G2-Esports-2020-Logo-1.png"),
-("MISFITS",""),
-("ORIGEN",""),
-("ROGUE",""),
-("SCHALKE 04",""),
-("SK",""),
-("MAD LIONS",""),
-("VITALITY","");
+("MISFITS","https://i.blogs.es/d06c20/misfits-8fnvxt30/1366_2000.png"),
+("ORIGEN","https://gamepedia.cursecdn.com/lolesports_gamepedia_en/1/12/Origenlogo_square.png"),
+("ROGUE","https://gamepedia.cursecdn.com/lolesports_gamepedia_en/a/a4/Rogue_%28European_Team%29logo_square.png"),
+("SCHALKE 04","https://upload.wikimedia.org/wikipedia/commons/9/97/FC_Schalke_04_Logo.png"),
+("SK","https://esports.clashroyale.com/uploaded-images/sk_logo.png?mtime=20190531212514"),
+("MAD LIONS","https://www.giantsgaming.pro/wp-content/uploads/2019/05/600px-MAD_Lionslogo_profile.png"),
+("VITALITY","https://images.prismic.io/rivalryglhf/ee46659e6ccb4e4d7dab39d05ca09176b6390ed7_team-vitality-lcs-league-of-legends.png?auto=compress,format");
 
 
 #INSERTS DE JUGADORES EN LA TABLA JUGADOR 
