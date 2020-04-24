@@ -26,7 +26,7 @@ public class Usuario implements Serializable {
 	@Id
 	@Column(name="id")
 	private int id;
-	
+
 	@Column(name="nombre")
 	private String nombre;
 	
@@ -215,5 +215,11 @@ public class Usuario implements Serializable {
 
 	public void setRosterFinal_usuario(Set<Jugador> rosterFinal_usuario) {
 		this.rosterFinal_usuario = rosterFinal_usuario;
+	}
+	
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo + ", alias="
+				+ alias + ", contrasena=" + contrasena + "]";
 	}
 }
