@@ -32,19 +32,9 @@ public class UsuarioImpl {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	@Autowired
-	private UsuarioDao usuarios;
-
-	@GetMapping
-	@RequestMapping("/usuarios/all")
-	public List<Usuario> getAll(){
-		return usuarios.findAll();
-	}
-	
 	@Transactional
 	@PostMapping
 	public void insert(@RequestBody Usuario usuario){
-		System.out.println(usuario.toString());
 		entityManager.createNativeQuery("INSERT INTO usuario (nombre,apellido,correo,alias,contrasena) VALUES (?,?,?,?,?)")
 			.setParameter(1, usuario.getNombre())
 			.setParameter(2, usuario.getApellido())
@@ -52,5 +42,6 @@ public class UsuarioImpl {
 			.setParameter(4, usuario.getAlias())
 			.setParameter(5, usuario.getContrasena())
 			.executeUpdate();
+		entityManager.close();
 	}
 }

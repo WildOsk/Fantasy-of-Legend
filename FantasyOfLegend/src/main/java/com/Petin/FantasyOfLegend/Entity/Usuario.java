@@ -51,24 +51,19 @@ public class Usuario implements Serializable {
 	@Column(name="dinero")
 	private int dinero;
 	
-	@JsonIgnore
 	@Column(name="suma_puntuacion")
 	private int suma_puntuacion;
 	
-	@JsonIgnore
 	@Column(name="fk_liga",insertable = false, updatable = false)
 	private int fk_liga;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="fk_liga")
 	private Liga liga;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
 	private Set<Subasta> subastas;
 	
-	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.ALL})
 	 @JoinTable(name="roster_usuario", joinColumns={@JoinColumn(name="fk_usuario")}, inverseJoinColumns={@JoinColumn(name="fk_jugador")})
 	 private Set<Jugador> jugadores_roster_usuario=new HashSet();
