@@ -7,8 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,13 +26,11 @@ public class UsuarioImpl {
 	private EntityManager entityManager;
 	
 	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	@Autowired
 	private UsuarioDao usu;
 	
 	@Transactional
 	@PostMapping
-	@RequestMapping("/usuarios")
+	@RequestMapping("/usuarios/insert")
 	public boolean insert(@RequestBody Usuario usuario){
 		boolean existe = false;
 		Query query = entityManager.createNativeQuery("Select id from usuario where alias= ?")
@@ -49,12 +45,12 @@ public class UsuarioImpl {
 			if(resultList.size()>0) {
 				return false;
 			} else {
-				entityManager.createNativeQuery("INSERT INTO usuario (nombre,apellido,correo,alias,contrasena) VALUES (?,?,?,?,?)")
+				entityManager.createNativeQuery("INSERT INTO usuario (nombre,apellido,correo,alias,contrasena) VALUES (?,?,?,?,hex(AES_ENCRYPT(?,'PATATON')))")
 				.setParameter(1, usuario.getNombre())
 				.setParameter(2, usuario.getApellido())
 				.setParameter(3, usuario.getCorreo())
 				.setParameter(4, usuario.getAlias())
-				.setParameter(5, bCryptPasswordEncoder.encode(usuario.getContrasena()))
+				.setParameter(5, usuario.getContrasena())
 				.executeUpdate();
 			entityManager.close();
 			}
@@ -65,10 +61,9 @@ public class UsuarioImpl {
 	@PostMapping
 	@RequestMapping("/usuarios/login")
 	public Optional<Usuario> iniciarSesion(@RequestBody Usuario usuario) {
-		System.out.println(bCryptPasswordEncoder.encode(usuario.getContrasena()));
-		Query query = entityManager.createNativeQuery("Select id from usuario where alias= ? and contrasena = ?")
+		Query query = entityManager.createNativeQuery("Select id from usuario where alias= ? and contrasena = hex(AES_ENCRYPT(?,'PATATON'))")
 				.setParameter(1, usuario.getAlias())
-				.setParameter(2, bCryptPasswordEncoder.encode(usuario.getContrasena()));
+				.setParameter(2, usuario.getContrasena());
 		int result = -1;
 		try {
 			result = (int) query.getSingleResult();
