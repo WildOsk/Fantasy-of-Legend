@@ -26,6 +26,8 @@ public class Liga implements Serializable{
 	private String nombre;
 	@Column(name="descripcion")
 	private String descripcion;
+	@Column(name="codigo")
+	private String codigo;
 	
 	
 	@OneToOne(cascade=CascadeType.ALL)
@@ -38,10 +40,11 @@ public class Liga implements Serializable{
 	public Liga() {
 	}
 
-	public Liga(int id, String nombre, String descripcion) {
+	public Liga(int id, String nombre, String descripcion, String codigo) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.codigo = codigo;
 	}
 
 	public int getId() {
@@ -68,11 +71,18 @@ public class Liga implements Serializable{
 		this.descripcion = descripcion;
 	}	
 	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+	
 	private static final long serialVersionUID = 1L;
 
-	
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "Liga [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", codigo=" + codigo + "]";
+	}	
 }
