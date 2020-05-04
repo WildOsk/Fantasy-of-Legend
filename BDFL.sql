@@ -53,9 +53,10 @@ create table if not exists puntuacion_jugador(
 create table if not exists liga(
  id int not null auto_increment primary key,
  nombre varchar(100) not null,
- descripcion varchar(100)
+ descripcion varchar(100),
+ codigo varchar(100)
 );
-insert into liga values (0,"a","b");
+insert into liga values (0,"a","b","asvavab");
 
 
 create table if not exists usuario(
@@ -65,8 +66,8 @@ create table if not exists usuario(
  rol varchar(100) not null default "otakus",
  correo varchar(100) not null,
  alias varchar(100) not null ,
- contrasena varchar(100) not null,
- logo varchar(100) default 0,
+ contrasena blob not null,
+ logo varchar(100) default "../../assets/img/coffee2.jpg",
  dinero int default 30000000,
  suma_puntuacion int default 0,
  fk_liga int default 1 ,

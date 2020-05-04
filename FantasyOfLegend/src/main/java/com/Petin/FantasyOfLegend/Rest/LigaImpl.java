@@ -62,7 +62,10 @@ public class LigaImpl {
 	@Transactional(propagation = Propagation.NESTED)
 	@PostMapping
 	@RequestMapping("/liga/creacion/{id}")
-	public String crearLiga(@RequestBody Liga liga, @PathVariable Integer id) {
+	public String[] crearLiga(@RequestBody Liga liga, @PathVariable Integer id) {
+		String[] resultado = new String[2];
+		System.out.println(liga.toString());
+		System.out.println(id);
 		Query query = entityManager.createNativeQuery("Select fk_liga from usuario where id= ?").setParameter(1, id);
 		List<Integer> resultList = query.getResultList();
 		if (resultList.get(0) == 1) {
@@ -71,7 +74,12 @@ public class LigaImpl {
 			resultList = query.getResultList();
 			System.out.println(resultList);
 			if (resultList.size() == 0) {
-				nuevaLiga(liga);
+				String codigoR = codigoRandom();
+				entityManager.createNativeQuery("INSERT INTO Liga (nombre, descripcion, codigo) VALUES (?,?,?)")
+					.setParameter(1, liga.getNombre())
+					.setParameter(2, liga.getDescripcion())
+					.setParameter(3, codigoR)
+					.executeUpdate();
 				query = entityManager.createNativeQuery("Select id from liga where nombre= ?").setParameter(1,
 						liga.getNombre());
 				resultList = query.getResultList();
@@ -80,14 +88,18 @@ public class LigaImpl {
 						liga.getNombre());
 				resultList = query.getResultList();
 				asignarNuevaLiga(resultList.get(0), id);
-				return "Liga creada";
+				resultado[0] = "success";
+				resultado[1] = codigoR;
+				return resultado;
 			} else {
 				entityManager.close();
-				return "Ya existe una liga con ese nombre";
+				resultado[0] ="Ya existe una liga con ese nombre.";
+				return resultado;
 			}
 		} else {
 			entityManager.close();
-			return "Usuario ya tiene liga.";
+			resultado[0] ="Usuario ya tiene liga.";
+			return resultado;
 		}
 	}
 
@@ -98,14 +110,6 @@ public class LigaImpl {
 	public void nuevoMercado(int id) {
 		entityManager.createNativeQuery("INSERT INTO Mercado (fk_liga) VALUES (?)")
 			.setParameter(1, id)
-			.executeUpdate();
-	}
-
-	public void nuevaLiga(Liga liga) {
-		entityManager.createNativeQuery("INSERT INTO Liga (nombre, descripcion, codigo) VALUES (?,?,?)")
-			.setParameter(1, liga.getNombre())
-			.setParameter(2, liga.getDescripcion())
-			.setParameter(3, codigoRandom())
 			.executeUpdate();
 	}
 

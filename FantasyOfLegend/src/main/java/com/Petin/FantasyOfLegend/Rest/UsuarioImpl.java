@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Query;
 
+import com.Petin.FantasyOfLegend.Dao.LigaDao;
 import com.Petin.FantasyOfLegend.Dao.UsuarioDao;
 import com.Petin.FantasyOfLegend.Entity.Usuario;
 
@@ -39,6 +40,9 @@ public class UsuarioImpl {
 
 	@Autowired
 	private UsuarioDao usu;
+	
+	@Autowired
+	private LigaDao li;
 
 	@Autowired
 	private JavaMailSender mailSender;
@@ -74,16 +78,27 @@ public class UsuarioImpl {
 
 	@PostMapping
 	@RequestMapping("/usuarios/login")
-	public Optional<Usuario> iniciarSesion(@RequestBody Usuario usuario) {
-		Query query = entityManager
-				.createNativeQuery(
-						"Select id from usuario where alias= ? and contrasena = hex(AES_ENCRYPT(?,'PATATON'))")
-				.setParameter(1, usuario.getAlias()).setParameter(2, usuario.getContrasena());
+	public Object[] iniciarSesion(@RequestBody Usuario usuario) {
+		Object[] resultado = new String[2];
+		Query query = entityManager.createNativeQuery("Select id from usuario where alias= ? and contrasena = hex(AES_ENCRYPT(?,'PATATON'))")
+				.setParameter(1, usuario.getAlias())
+				.setParameter(2, usuario.getContrasena());
 
 		try {
-			int result = (int) query.getSingleResult();
+			int id_usuario = (int) query.getResultList().get(0);
+			System.out.println(id_usuario);
+			query = entityManager.createNativeQuery("Select fk_liga from usuario where id=?")
+					.setParameter(1, id_usuario);
+			int id_liga = (int) query.getResultList().get(0);
+			System.out.println(id_liga);
+			System.out.println("HASTA AQUIU FUNCIONA");
+			resultado[0] = (Object) usu.findById(id_usuario);
+			System.out.println("HASTA AQUIU FUNCIONA 2");
+			resultado[1] = (Object) li.findById(id_liga);
+			System.out.println("HASTA AQUIU FUNCIONA 3");
 			entityManager.close();
-			return usu.findById(result);
+			System.out.println("HASTA AQUIU FUNCIONA 4");
+			return resultado;
 		} catch (Exception e) {
 			return null;
 		}
