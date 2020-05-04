@@ -30,7 +30,7 @@ create table if not exists partido(
  fk_jornada int not null,
  foreign key (fk_jornada) references jornada (id),
  foreign key (e_local) references equipo(id),
- foreign key (visitante) references equipo(id),
+ foreign key (visitante) references equipo(id)
 );
 
 create table if not exists puntuacion(
@@ -279,21 +279,21 @@ values("2020-06-12 18:00:00"),
 ("2020-06-14 17:00:00");
 
 INSERT INTO partido(e_local,visitante,fk_jornada)
-values(9,3,2),
-(10,7,2),
-(5,8,2),
-(6,1,2),
-(4,2,2),
-(7,8,3),
-(6,4,3),
-(1,9,3),
-(2,10,3),
-(3,5,3),
-(8,9,4),
-(7,6,4),
-(5,4,4),
-(3,10,4),
-(2,1,4);
+values(9,3,1),
+(10,7,1),
+(5,8,1),
+(6,1,1),
+(4,2,1),
+(7,8,2),
+(6,4,2),
+(1,9,2),
+(2,10,2),
+(3,5,2),
+(8,9,3),
+(7,6,3),
+(5,4,3),
+(3,10,3),
+(2,1,3);
 
 create or replace view num_posiciones
 as select count(posicion) as "Total de supports", 

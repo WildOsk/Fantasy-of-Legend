@@ -33,13 +33,13 @@ public class LigaImpl {
 
 	@Transactional(propagation = Propagation.NESTED)
 	@PostMapping
-	@RequestMapping("/liga/union/{id}")
-	public String unirteLiga(@RequestBody Liga codigo, @PathVariable Integer id) {
+	@RequestMapping("/liga/union/{codigo}/{id}")
+	public String unirteLiga(@PathVariable String codigo, @PathVariable Integer id) {
 		Query query = entityManager.createNativeQuery("Select fk_liga from usuario where id= ?").setParameter(1, id);
 		List<Integer> resultList = query.getResultList();
 		if (resultList.get(0) == 1) {
-			query = entityManager.createNativeQuery("Select nombre from liga where codigo= ?").setParameter(1,
-					codigo.getCodigo());
+			query = entityManager.createNativeQuery("Select nombre from liga where codigo= ?")
+					.setParameter(1,codigo);
 			List<String> resultado = query.getResultList();
 			if (resultado.size() != 0) {
 				String nombre = resultado.get(0);
