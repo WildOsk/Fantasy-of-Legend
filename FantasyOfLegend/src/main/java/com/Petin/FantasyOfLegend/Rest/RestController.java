@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.persistence.Query;
 
 import com.Petin.FantasyOfLegend.Dao.EquipoDao;
+import com.Petin.FantasyOfLegend.Dao.JornadaDao;
 import com.Petin.FantasyOfLegend.Dao.JugadoresDao;
 import com.Petin.FantasyOfLegend.Entity.Equipo;
+import com.Petin.FantasyOfLegend.Entity.Jornada;
 import com.Petin.FantasyOfLegend.Entity.Jugador;
+import com.Petin.FantasyOfLegend.Entity.Partido;
 
 @org.springframework.web.bind.annotation.RestController
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET})
@@ -30,6 +33,8 @@ public class RestController {
 	private EquipoDao equ;
 	@Autowired
 	private JugadoresDao jug;
+	@Autowired
+	private JornadaDao jor;
 	
 	@GetMapping
 	@RequestMapping("/equipos")
@@ -59,4 +64,5 @@ public class RestController {
 	public Optional<Equipo> mostrar(@PathVariable Integer id){
 		return equ.findById(id);
 	}		
+	
 }

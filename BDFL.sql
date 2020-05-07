@@ -25,12 +25,12 @@ create table if not exists jornada(
 create table if not exists partido(
  id int not null auto_increment primary key,
  e_local int not null,
- visitante int not null,
- resultado int,
+ e_visitante int not null,
+ resultado int default 0,
  fk_jornada int not null,
  foreign key (fk_jornada) references jornada (id),
  foreign key (e_local) references equipo(id),
- foreign key (visitante) references equipo(id)
+ foreign key (e_visitante) references equipo(id)
 );
 
 create table if not exists puntuacion(
@@ -279,7 +279,7 @@ values("2020-06-12 18:00:00"),
 ("2020-06-13 17:00:00"),
 ("2020-06-14 17:00:00");
 
-INSERT INTO partido(e_local,visitante,fk_jornada)
+INSERT INTO partido(e_local,e_visitante,fk_jornada)
 values(9,3,1),
 (10,7,1),
 (5,8,1),
