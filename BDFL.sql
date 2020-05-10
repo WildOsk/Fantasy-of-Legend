@@ -26,7 +26,7 @@ create table if not exists partido(
  id int not null auto_increment primary key,
  e_local int not null,
  e_visitante int not null,
- resultado int default 0,
+ resultado varchar(100) default "0-0",
  fk_jornada int not null,
  foreign key (fk_jornada) references jornada (id),
  foreign key (e_local) references equipo(id),

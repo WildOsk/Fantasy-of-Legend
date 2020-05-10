@@ -28,14 +28,8 @@ public class Partido implements Serializable {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="e_local")
-	private int e_local;
-	
-	@Column(name="e_visitante")
-	private int e_visitante;
-	
 	@Column(name="resultado")
-	private int resultado;
+	private String resultado;
 	
 	@Column(name="fk_jornada")
 	private int fk_jornada;
@@ -52,15 +46,21 @@ public class Partido implements Serializable {
 	public Partido() {
 		
 	}
-
-	public Partido(int id, int e_local, int visitante, int resultado, int fk_jornada) {
+	
+	public Partido(int id, String resultado) {
 		super();
 		this.id = id;
-		this.e_local = e_local;
-		this.e_visitante = visitante;
+		this.resultado = resultado;
+	}
+
+	public Partido(int id, String resultado, int fk_jornada) {
+		super();
+		this.id = id;
 		this.resultado = resultado;
 		this.fk_jornada = fk_jornada;
 	}
+	
+	
 
 	public int getId() {
 		return id;
@@ -70,27 +70,12 @@ public class Partido implements Serializable {
 		this.id = id;
 	}
 
-	public int getE_local() {
-		return e_local;
-	}
 
-	public void setE_local(int e_local) {
-		this.e_local = e_local;
-	}
-
-	public int getVisitante() {
-		return e_visitante;
-	}
-
-	public void setVisitante(int visitante) {
-		this.e_visitante = visitante;
-	}
-
-	public int getResultado() {
+	public String getResultado() {
 		return resultado;
 	}
 
-	public void setResultado(int resultado) {
+	public void setResultado(String resultado) {
 		this.resultado = resultado;
 	}
 
