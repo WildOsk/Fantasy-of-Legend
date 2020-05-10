@@ -47,6 +47,7 @@ public class UsuarioImpl {
 	@PostMapping
 	@RequestMapping("/usuarios/insert")
 	public boolean insert(@RequestBody Usuario usuario) {
+		System.out.println(usuario.toString());
 		boolean existe = false;
 		Query query = entityManager.createNativeQuery("Select id from usuario where alias= ?").setParameter(1,
 				usuario.getAlias());
@@ -62,10 +63,10 @@ public class UsuarioImpl {
 			} else {
 				System.out.println(usuario);
 				entityManager.createNativeQuery(
-						"INSERT INTO usuario (nombre,apellido,correo,alias,contrasena) VALUES (?,?,?,?,hex(AES_ENCRYPT(?,'PATATON')))")
+						"INSERT INTO usuario (nombre,apellido,correo,alias,contrasena, logo) VALUES (?,?,?,?,hex(AES_ENCRYPT(?,'PATATON')),?)")
 						.setParameter(1, usuario.getNombre()).setParameter(2, usuario.getApellido())
 						.setParameter(3, usuario.getCorreo()).setParameter(4, usuario.getAlias())
-						.setParameter(5, usuario.getContrasena()).executeUpdate();
+						.setParameter(5, usuario.getContrasena()).setParameter(6, usuario.getLogo()).executeUpdate();
 				entityManager.close();
 			}
 			return true;
