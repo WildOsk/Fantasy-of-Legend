@@ -139,37 +139,37 @@ values("EXCEL","https://gamepedia.cursecdn.com/lolesports_gamepedia_en/8/85/Exce
 #INSERTS DE JUGADORES EN LA TABLA JUGADOR 
 
 INSERT INTO jugador(nombre,posicion,precio,fk_equipo) 
-values  ("EXPECT","TOP",1,1),
-		("CAEDREL","JUNGLE",1,1),
-        ("MICKEY","MID",1,1),
-        ("PATRIK","ADC",1,1),
-        ("TORE","SUPPORT",1,1),
+values  ("EXPECT","TOP",15378787,1),
+		("CAEDREL","JUNGLE",15909090,1),
+        ("MICKEY","MID",21609848,1),
+        ("PATRIK","ADC",22007575,1),
+        ("TORE","SUPPORT",20946969,1),
         ("KASING","SUPPORT",1,1),
         ("SENDO","TOP",1,1),
         ("TAXER","JUNGLE",1,1),
         ("SPECIAL","MID",1,1),
         ("DEADLY","ADC",1,1),
         ("BOASTER","MID",1,1),
-        ("YOUNGBACK/MAPACHE","COACH",1,1);
+        ("YOUNGBACK/MAPACHE","COACH",21818181,1);
 INSERT INTO jugador(nombre,posicion,precio,fk_equipo) 
-values  ("BWIPO","TOP",1,2),
-		("SELFMADE","JUNGLE",1,2),
-        ("NEMESIS","MID",1,2),
-        ("REKKLES","ADC",1,2),
-        ("HYLISSANG","SUPPORT",1,2),
+values  ("BWIPO","TOP",15511363,2),
+		("SELFMADE","JUNGLE",18428030,2),
+        ("NEMESIS","MID",18162878,2),
+        ("REKKLES","ADC",29034090,2),
+        ("HYLISSANG","SUPPORT",16306818,2),
         ("PRIDE","TOP",1,2),
         ("DAN","JUNGLE",1,2),
         ("MAGIFELIX","MID",1,2),
         ("XMATTY","ADC",1,2),
         ("BRAVADO","SUPPORT",1,2),
         ("CHIBS","MID",1,2),
-        ("MITHY","COACH",1,2);
+        ("MITHY","COACH",26520376,2);
 INSERT INTO jugador(nombre,posicion,precio,fk_equipo) 
-values  ("WUNDER","TOP",1,3),
-		("JANKOS","JUNGLE",1,3),
-        ("PERKZ","MID",1,3),
-        ("CAPS","ADC",1,3),
-        ("MIKYX","SUPPORT",1,3),
+values  ("WUNDER","TOP",22670454,3),
+		("JANKOS","JUNGLE",25454545,3),
+        ("PERKZ","MID",26382575,3),
+        ("CAPS","ADC",35000000,3),
+        ("MIKYX","SUPPORT",27840909,3),
         ("OSCARININ","TOP",1,3),
         ("NASSER","JUNGLE",1,3),
         ("FEENIIXZ","MID",1,3),
@@ -177,13 +177,13 @@ values  ("WUNDER","TOP",1,3),
         ("AESENAR","SUPPORT",1,3),
         ("NANDISKO","TOP",1,3),
         ("P1NOY","ADC",1,3),
-        ("GRABBZ","COACH",1,3);
+        ("GRABBZ","COACH",30000000,3);
 INSERT INTO jugador(nombre,posicion,precio,fk_equipo) 
-values  ("DAN DAN","TOP",1,4),
-		("RAZORK","JUNGLE",1,4),
-        ("FEBIVEN","MID",1,4),
-        ("BVOY","ADC",1,4),
-        ("DENYK","SUPPORT",1,4),
+values  ("DAN DAN","TOP",17765151,4),
+		("RAZORK","JUNGLE",19090909,4),
+        ("FEBIVEN","MID",20946969,4),
+        ("BVOY","ADC",23863636,4),
+        ("DENYK","SUPPORT",22405303,4),
         ("AGRESIVOO","TOP",1,4),
         ("KIREI","JUNGLE",1,4),
         ("RONALDO","MID",1,4),
@@ -191,88 +191,88 @@ values  ("DAN DAN","TOP",1,4),
         ("DOSS","SUPPORT",1,4),
         ("ROZARA","JUNGLE",1,4),
         ("DECAY","MID",1,4),
-        ("JANDRO/AMAZING","COACH",1,4);
+        ("JANDRO/AMAZING","COACH",24357366,4);
 INSERT INTO jugador(nombre,posicion,precio,fk_equipo) 
-values  ("ALPHARI","TOP",1,5),
-		("XERXE","JUNGLE",1,5),
-        ("NUKEDUCK","MID",1,5),
-        ("UPSET","ADC",1,5),
-        ("DESTINY","SUPPORT",1,5),
+values  ("ALPHARI","TOP",22007575,5),
+		("XERXE","JUNGLE",19621212,5),
+        ("NUKEDUCK","MID",19753787,5),
+        ("UPSET","ADC",28503787,5),
+        ("DESTINY","SUPPORT",18825757,5),
         ("MYRWN","TOP",1,5),
         ("CRONIIK","JUNGLE",1,5),
         ("KAMIKAZE","MID",1,5),
         ("CORVO","ADC",1,5),
         ("BOLY","SUPPORT",1,5),
         ("HIIVA","SUPPORT",1,5),
-        ("GUILHOTO/KAYYS","COACH",1,5);
+        ("GUILHOTO/KAYYS","COACH",27460815,5);
 INSERT INTO jugador(nombre,posicion,precio,fk_equipo) 
-values  ("FINN","TOP",1,6),
-		("INSPIRED","JUNGLE",1,6),
-        ("LARSSEN","MID",1,6),
-        ("HANS SAMA","ADC",1,6),
-        ("VANDER","SUPPORT",1,6),
+values  ("FINN","TOP",17234848,6),
+		("INSPIRED","JUNGLE",18030303,6),
+        ("LARSSEN","MID",23333333,6),
+        ("HANS SAMA","ADC",23068182,6),
+        ("VANDER","SUPPORT",20549242,6),
         ("SZYGENDA","TOP",1,6),
         ("ZANZARAH","JUNGLE",1,6),
         ("CZEKOLAD","MID",1,6),
         ("WOOLITE","ADC",1,6),
         ("MYSTIQUES","SUPPORT",1,6),
         ("BLUEKNIGHT","MID",1,6),
-        ("BLUMIGAN/FREDY122","COACH",1,6);
+        ("BLUMIGAN/FREDY122","COACH",27648902,6);
 INSERT INTO jugador(nombre,posicion,precio,fk_equipo) 
-values  ("ODOAMNE","TOP",1,7),
-		("GILIUS","JUNGLE",1,7),
-        ("ABBEDAGGE","MID",1,7),
-        ("FORG1VEN","ADC",1,7),
-        ("DREAMS","SUPPORT",1,7),
+values  ("ODOAMNE","TOP",14981061,7),
+		("GILIUS","JUNGLE",4375000,7),
+        ("ABBEDAGGE","MID",16041667,7),
+        ("FORG1VEN","ADC",10340909,7),
+        ("DREAMS","SUPPORT",13522727,7),
         ("SLEEPING","TOP",1,7),
-        ("LUROX","JUNGLE",1,7),
+        ("LUROX","JUNGLE",10075758,7),
         ("SERTUSS","MID",1,7),
-        ("INNAXE","ADC",1,7),
+        ("INNAXE","ADC",8352273,7),
         ("NEON","ADC",1,7),
         ("SIRNUKESALOT","SUPPORT",1,7),
         ("KAMITO","ADC",1,7),
-        ("DYLAN FALCO","COACH",1,7);
+        ("DYLAN FALCO","COACH",10438871,7);
 INSERT INTO jugador(nombre,posicion,precio,fk_equipo) 
-values  ("SACRE","TOP",1,8),
-		("TRICK","JUNGLE",1,8),
-        ("JENAX","MID",1,8),
-        ("CROWNSHOT","ADC",1,8),
-        ("LIMIT","SUPPORT",1,8),
+values  ("SACRE","TOP",8087121,8),
+		("TRICK","JUNGLE",8352273,8),
+        ("JENAX","MID",7689394,8),
+        ("CROWNSHOT","ADC",15511364,8),
+        ("LIMIT","SUPPORT",7556818,8),
         ("VENTAIR","TOP",1,8),
         ("PHRENIC","JUNGLE",1,8),
         ("REEKER","MID",1,8),
         ("TIGER","ADC",1,8),
         ("TRYMBI","SUPPORT",1,8),
         ("BERTHO","SUPPORT",1,8),
-        ("UNLIMITED/KANANI","COACH",1,8);
+        ("UNLIMITED/KANANI","COACH",12319749,8);
 INSERT INTO jugador(nombre,posicion,precio,fk_equipo) 
-values  ("OROME","TOP",1,9),
-		("SHADOW","JUNGLE",1,9),
-        ("HUMANOID","MID",1,9),
-        ("CARZZY","ADC",1,9),
-        ("KAISER","SUPPORT",1,9),
+values  ("OROME","TOP",14981061,9),
+		("SHADOW","JUNGLE",17897727,9),
+        ("HUMANOID","MID",18958333,9),
+        ("CARZZY","ADC",19886364,9),
+        ("KAISER","SUPPORT",17367424,9),
         ("WERLYB","TOP",1,9),
         ("KOLDO","JUNGLE",1,9),
         ("HATRIXX","MID",1,9),
         ("FLAKKED","ADC",1,9),
         ("PRIME","SUPPORT",1,9),
         ("FALCO","SUPPORT",1,9),
-        ("MAC/KAAS","COACH",1,9);
+        ("MAC/KAAS","COACH",27460815,9);
 INSERT INTO jugador(nombre,posicion,precio,fk_equipo) 
-values  ("CABOCHARD","TOP",1,10),
-		("SKEANZ","JUNGLE",1,10),
-        ("SAKEN","MID",1,10),
-        ("COMP","ADC",1,10),
-        ("JACTROLL","SUPPORT",1,10),
+values  ("CABOCHARD","TOP",8352273,10),
+		("SKEANZ","JUNGLE",9810606,10),
+        ("SAKEN","MID",5965909,10),
+        ("COMP","ADC",10075758,10),
+        ("JACTROLL","SUPPORT",4507576,10),
         ("MOWGLI","JUNGLE",1,10),
         ("NJI","JUNGLE",1,10),
-        ("SELFIE","MID",1,10),
+        ("SELFIE","MID",1590909,10),
         ("LUCKER","ADC",1,10),
         ("TRAYTON","SUPPORT",1,10),
-        ("STEEELBACK","SUPPORT",1,10),
+        ("STEEELBACK","SUPPORT",1856061,10),
         ("KREPO","SUPPORT",1,10),
         ("XANI","JUNGLE",1,10),
-        ("DUKE/MEPHISTO","COACH",1,10);
+        ("DUKE/MEPHISTO","COACH",6771160,10);
        
 INSERT INTO jornada (fecha)
 values("2020-06-12 18:00:00"),
@@ -304,8 +304,26 @@ as select count(posicion) as "Total de supports",
 (select count(posicion) from jugador where posicion="TOP") as "Total de tops",
 (select count(posicion) from jugador where posicion="COACH") as "Total de coachs"FROM jugador where posicion ="SUPPORT";
 
+#CREACION DE VISTAS
+create or replace view mas20mill
+as select count(nombre) as" Jugadores con valor por mas de 20 MILLONES" from jugador where precio >20000000;
+create or replace view entre20y10
+as select count(nombre) as" Jugadores con valor entre 10 y 20 MILLONES" from jugador where precio <20000000 and precio >10000000;
+create or replace view menos10
+as select count(nombre) as" Jugadores con valor menos de 10 MILLONES" from jugador where precio <10000000;
+create or replace view menos5
+as select count(nombre) as" Jugadores con valor menos de 5 MILLONES" from jugador where precio <50000000;
+create or replace view menos1
+as select count(nombre) as" Jugadores con valor menos de 5 MILLONES" from jugador where precio <10000000;
+
+SELECT * FROM jugador order by precio desc;
+
+#VISTAS
 SELECT * from num_posiciones;
-
-
+SELECT * from mas20mill;
+SELECT * from entre20y10;
+SELECT * from menos10;
+SELECT * from menos5;
+SELECT * from menos1;
 
 
