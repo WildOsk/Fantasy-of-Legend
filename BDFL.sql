@@ -305,25 +305,19 @@ as select count(posicion) as "Total de supports",
 (select count(posicion) from jugador where posicion="COACH") as "Total de coachs"FROM jugador where posicion ="SUPPORT";
 
 #CREACION DE VISTAS
-create or replace view mas20mill
-as select count(nombre) as" Jugadores con valor por mas de 20 MILLONES" from jugador where precio >20000000;
-create or replace view entre20y10
-as select count(nombre) as" Jugadores con valor entre 10 y 20 MILLONES" from jugador where precio <20000000 and precio >10000000;
-create or replace view menos10
-as select count(nombre) as" Jugadores con valor menos de 10 MILLONES" from jugador where precio <10000000;
-create or replace view menos5
-as select count(nombre) as" Jugadores con valor menos de 5 MILLONES" from jugador where precio <50000000;
-create or replace view menos1
-as select count(nombre) as" Jugadores con valor menos de 5 MILLONES" from jugador where precio <10000000;
+create or replace view jug_valores
+as select count(nombre) as" Jugadores con valor por mas de 20 MILLONES",
+	(select count(nombre) from jugador where precio <20000000 and precio >10000000) as" Jugadores con valor entre 10 y 20 MILLONES",
+	(select count(nombre) from jugador where precio <10000000) as" Jugadores con valor menos de 10 MILLONES",
+	(select count(nombre) from jugador where precio <50000000) as" Jugadores con valor menos de 5 MILLONES",
+	(select count(nombre) from jugador where precio <10000000) as" Jugadores con valor menos de 1 MILLONES"
+from jugador where precio >20000000;
+
 
 SELECT * FROM jugador order by precio desc;
 
 #VISTAS
 SELECT * from num_posiciones;
-SELECT * from mas20mill;
-SELECT * from entre20y10;
-SELECT * from menos10;
-SELECT * from menos5;
-SELECT * from menos1;
+select * from jug_valores;
 
 
