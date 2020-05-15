@@ -309,8 +309,8 @@ create or replace view jug_valores
 as select count(nombre) as" Jugadores con valor por mas de 20 MILLONES",
 	(select count(nombre) from jugador where precio <20000000 and precio >10000000) as" Jugadores con valor entre 10 y 20 MILLONES",
 	(select count(nombre) from jugador where precio <10000000) as" Jugadores con valor menos de 10 MILLONES",
-	(select count(nombre) from jugador where precio <50000000) as" Jugadores con valor menos de 5 MILLONES",
-	(select count(nombre) from jugador where precio <10000000) as" Jugadores con valor menos de 1 MILLONES"
+	(select count(nombre) from jugador where precio <5000000) as" Jugadores con valor menos de 5 MILLONES",
+	(select count(nombre) from jugador where precio <1000000) as" Jugadores con valor menos de 1 MILLONES"
 from jugador where precio >20000000;
 
 
