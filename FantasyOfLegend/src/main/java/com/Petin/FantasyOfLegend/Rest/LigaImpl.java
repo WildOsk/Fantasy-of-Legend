@@ -12,6 +12,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -39,7 +40,7 @@ public class LigaImpl {
 
 	@Autowired
 	private LigaDao li;
-	
+
 	@Autowired
 	private JugadoresDao jug;
 
@@ -58,17 +59,17 @@ public class LigaImpl {
 			int idLiga = resultList.get(0);
 			query = entityManager.createNativeQuery("Select id from usuario where fk_liga = ?").setParameter(1, idLiga);
 			resultList = query.getResultList();
-			if(resultList.size()<6) {
+			if (resultList.size() < 6) {
 				entityManager.createNativeQuery("Update Usuario set fk_liga=? where id= ?").setParameter(1, idLiga)
 						.setParameter(2, id).executeUpdate();
 				entityManager.close();
 				resultadoString[0] = "success";
 				return resultadoString;
-			}else {
+			} else {
 				resultadoString[0] = "No se pueden unir más personas a esta liga";
 				return resultadoString;
 			}
-			
+
 		} else {
 			entityManager.close();
 			resultadoString[0] = "No existe una liga con ese codigo";
@@ -97,14 +98,14 @@ public class LigaImpl {
 		int resultado = (int) query.getResultList().get(0);
 		query = entityManager.createNativeQuery("Select id from usuario where fk_liga = ?").setParameter(1, resultado);
 		List<Integer> resultados = query.getResultList();
-		for(int i=0; i < resultados.size(); i++) {
+		for (int i = 0; i < resultados.size(); i++) {
 			System.out.println(resultados.get(i));
 			System.out.println(usu.findById(resultados.get(i)).toString());
 			usuarios.add(usu.findById(resultados.get(i)));
 		}
 		return usuarios;
 	}
-	
+
 	@Transactional(propagation = Propagation.NESTED)
 	@PostMapping
 	@RequestMapping("/liga/creacion/{id}")
@@ -143,7 +144,7 @@ public class LigaImpl {
 
 	public void nuevoMercado(int id) {
 		entityManager.createNativeQuery("INSERT INTO Mercado (fk_liga) VALUES (?)").setParameter(1, id).executeUpdate();
-		cambiarMercado(id);
+		cambiarMercado(id, true);
 	}
 
 	public void asignarNuevaLiga(int id_liga, int id_usuario) {
@@ -151,39 +152,75 @@ public class LigaImpl {
 				.setParameter(2, id_usuario).executeUpdate();
 		entityManager.close();
 	}
-	
-	public void cambiarMercado(int id) {
-		System.out.println("en cambairMercado entra");
+
+	@Transactional(propagation = Propagation.NESTED)
+	public void cambiarMercado(int id, boolean crear) {
 		Query query = entityManager.createNativeQuery("Select id from Mercado where fk_liga = ?").setParameter(1, id);
 		int idMercado = (int) query.getSingleResult();
 		query = entityManager.createNativeQuery("Select id from Jugador");
 		List<Integer> idJugadores = query.getResultList();
 		query = entityManager.createNativeQuery("Select id from Usuario where fk_liga = ?").setParameter(1, id);
 		List<Integer> idUsuarios = query.getResultList();
-		for(int i=0; i<idUsuarios.size(); i++) {
-			query = entityManager.createNativeQuery("Select fk_jugador from roster_usuario where fk_usuario = ?").setParameter(1, idUsuarios.get(i));
+		for (int i = 0; i < idUsuarios.size(); i++) {
+			query = entityManager.createNativeQuery("Select fk_jugador from roster_usuario where fk_usuario = ?")
+					.setParameter(1, idUsuarios.get(i));
 			List<Integer> jugadoresUsuario = query.getResultList();
-			for(int j=0; j<jugadoresUsuario.size(); j++) {
+			for (int j = 0; j < jugadoresUsuario.size(); j++) {
 				idJugadores.remove(jugadoresUsuario.get(j));
 			}
 		}
-		meterJugadores(idJugadores, idMercado);
+		if (crear) {
+			meterJugadores(idJugadores, idMercado);
+		} else {
+			cambiarJugadores(idJugadores, idMercado);
+		}
+
 	}
-	
+
+	@Transactional(propagation = Propagation.NESTED)
 	public void meterJugadores(List<Integer> idJugadores, int idMercado) {
+		System.out.println("meter");
 		Random rand = new Random();
 		List<Integer> jugadoresSubasta = new ArrayList<Integer>();
-		while(jugadoresSubasta.size()<6) {
+		while (jugadoresSubasta.size() < 6) {
 			int nAleatorio = rand.nextInt(idJugadores.size());
-			if(!jugadoresSubasta.contains(idJugadores.get(nAleatorio))) {
+			if (!jugadoresSubasta.contains(idJugadores.get(nAleatorio))) {
 				jugadoresSubasta.add(idJugadores.get(nAleatorio));
 			}
 		}
-		for(int i=0; i<jugadoresSubasta.size(); i++) {
+		for (int i = 0; i < jugadoresSubasta.size(); i++) {
 			entityManager.createNativeQuery("INSERT INTO Mercado_jugador (fk_mercado, fk_jugador) VALUES (?,?)")
-			.setParameter(1, idMercado)
-			.setParameter(2, jugadoresSubasta.get(i))
-			.executeUpdate();
+					.setParameter(1, idMercado).setParameter(2, jugadoresSubasta.get(i)).executeUpdate();
+		}
+	}
+
+	@Transactional(propagation = Propagation.NESTED)
+	public void cambiarJugadores(List<Integer> idJugadores, int idMercado) {
+		System.out.println("cambiar");
+		Random rand = new Random();
+		List<Integer> jugadoresSubasta = new ArrayList<Integer>();
+		while (jugadoresSubasta.size() < 6) {
+			int nAleatorio = rand.nextInt(idJugadores.size());
+			if (!jugadoresSubasta.contains(idJugadores.get(nAleatorio))) {
+				jugadoresSubasta.add(idJugadores.get(nAleatorio));
+			}
+		}
+		entityManager.createNativeQuery("DELETE from Mercado_jugador where id>0").executeUpdate();
+		for (int i = 0; i < jugadoresSubasta.size(); i++) {
+			entityManager.createNativeQuery("INSERT INTO Mercado_jugador (fk_mercado, fk_jugador) VALUES (?,?)")
+					.setParameter(1, idMercado).setParameter(2, jugadoresSubasta.get(i)).executeUpdate();
+		}
+	}
+
+	@Scheduled(cron = "0 47 16 * * * ")
+	@Transactional(propagation = Propagation.NESTED)
+	public void mediaNoche() {
+		Query query = entityManager.createNativeQuery("Select id from Liga");
+		List<Integer> ligas = query.getResultList();
+		ligas.remove(0);
+		System.out.println(ligas);
+		for (int i = 0; i < ligas.size(); i++) {
+			cambiarMercado(ligas.get(i), false);
 		}
 	}
 }
