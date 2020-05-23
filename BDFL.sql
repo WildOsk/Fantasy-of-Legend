@@ -319,3 +319,22 @@ SELECT * from num_posiciones;
 select * from jug_valores;
 
 
+#PRUEBAS
+
+CREATE TABLE tbl_Students 
+(
+	StudID INT 
+    ,StudName VARCHAR(50)
+);
+SHOW PROCESSLIST;
+
+CREATE EVENT Eve_tbl_Students_Temp_Insert
+ON SCHEDULE EVERY 1 MINUTE
+DO
+  INSERT INTO tbl_Students 
+  VALUES (1,'Anvesh');
+  
+truncate table tbl_Students;
+#ALTER EVENT Eve_tbl_Students_Temp_Insert DISABLE; 
+#SET GLOBAL event_scheduler = ON;
+
