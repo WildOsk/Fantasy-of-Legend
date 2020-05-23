@@ -24,8 +24,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.Petin.FantasyOfLegend.Dao.JugadoresDao;
 import com.Petin.FantasyOfLegend.Dao.LigaDao;
+import com.Petin.FantasyOfLegend.Dao.MercadoDao;
+import com.Petin.FantasyOfLegend.Dao.SubastaDao;
 import com.Petin.FantasyOfLegend.Dao.UsuarioDao;
 import com.Petin.FantasyOfLegend.Entity.Liga;
+import com.Petin.FantasyOfLegend.Entity.Mercado;
+import com.Petin.FantasyOfLegend.Entity.Subasta;
 import com.Petin.FantasyOfLegend.Entity.Usuario;
 
 @org.springframework.web.bind.annotation.RestController
@@ -43,6 +47,12 @@ public class LigaImpl {
 
 	@Autowired
 	private JugadoresDao jug;
+
+	@Autowired
+	private MercadoDao mer;
+
+	@Autowired
+	private SubastaDao sub;
 
 	@Transactional(propagation = Propagation.NESTED)
 	@PostMapping
@@ -172,6 +182,7 @@ public class LigaImpl {
 		if (crear) {
 			meterJugadores(idJugadores, idMercado);
 		} else {
+			cogerSubastaMasAlta(idMercado);
 			cambiarJugadores(idJugadores, idMercado);
 		}
 
@@ -218,9 +229,65 @@ public class LigaImpl {
 		Query query = entityManager.createNativeQuery("Select id from Liga");
 		List<Integer> ligas = query.getResultList();
 		ligas.remove(0);
-		System.out.println(ligas);
 		for (int i = 0; i < ligas.size(); i++) {
 			cambiarMercado(ligas.get(i), false);
 		}
+	}
+
+	@Transactional(propagation = Propagation.NESTED)
+	@PostMapping
+	@RequestMapping("/liga/mercado/{id}")
+	public Optional<Mercado> mostrarMercado(@PathVariable Integer id) {
+		Query query = entityManager.createNativeQuery("Select fk_liga from usuario where id= ?").setParameter(1, id);
+		int resultado = (int) query.getResultList().get(0);
+		if (resultado != 1) {
+			query = entityManager.createNativeQuery("Select id from mercado where fk_liga= ?").setParameter(1,
+					resultado);
+			int mercado = (int) query.getResultList().get(0);
+			return mer.findById(mercado);
+		} else {
+			return null;
+		}
+	}
+
+	@Transactional(propagation = Propagation.NESTED)
+	@PostMapping
+	public void cogerSubastaMasAlta(int idMercado) {
+		Query query = entityManager.createNativeQuery("select fk_jugador from mercado_jugador where fk_mercado = ?")
+				.setParameter(1, idMercado);
+		List<Integer> jugadores = query.getResultList();
+		for (int i = 0; i < jugadores.size(); i++) {
+			query = entityManager.createNativeQuery("select id from subasta where dinero_ofrecido in "
+					+ "(select max(dinero_ofrecido) from subasta where fk_mercado = ? and fk_jugador_subastado = ?);")
+					.setParameter(1, idMercado).setParameter(2, jugadores.get(i));
+			int resultado = (int) query.getResultList().get(0);
+			query = entityManager.createNativeQuery("select fk_usuario from subasta where id=?").setParameter(1,
+					resultado);
+			int idUsuario = (int) query.getSingleResult();
+			query = entityManager.createNativeQuery("select dinero_ofreciod from subasta where id=?").setParameter(1,
+					resultado);
+			int dineroOfrecido = (int) query.getSingleResult();
+			entityManager.createNativeQuery("INSERT INTO roster_usuario (fk_usuario, fk_jugador) VALUES (?,?)")
+					.setParameter(1, idUsuario).setParameter(2, jugadores.get(i)).executeUpdate();			
+			Usuario u = usu.findById(idUsuario).get();
+			int dineroFinal = u.getDinero() - dineroOfrecido;
+			entityManager.createNativeQuery(
+					"Update Usuario set precio= where id= ?")
+					.setParameter(1, dineroFinal).setParameter(1, u.getId()).executeUpdate();
+			entityManager.close();
+		}
+		entityManager.createNativeQuery("DELETE from Subasta where fk_mercado = ?").setParameter(1, idMercado)
+				.executeUpdate();
+	}
+
+	@Transactional(propagation = Propagation.NESTED)
+	@PostMapping
+	@RequestMapping("/liga/mercado/puja")
+	public void pujaHecha(@RequestBody Subasta subasta) {
+		entityManager
+				.createNativeQuery("Insert from Subasta (dinero_ofrecido,fk_jugador_subastado,fk_usuario, fk_mercado) "
+						+ "values (?,?,?,?)")
+				.setParameter(1, subasta.getDinero_ofrecido()).setParameter(2, subasta.getFk_jugador_subastado())
+				.setParameter(3, subasta.getFk_usuario()).setParameter(4, subasta.getFk_mercado()).executeUpdate();
 	}
 }

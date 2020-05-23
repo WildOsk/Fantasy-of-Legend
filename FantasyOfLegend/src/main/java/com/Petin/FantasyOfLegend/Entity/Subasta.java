@@ -39,4 +39,40 @@ public class Subasta {
 	@JoinColumn(name="fk_jugador_subastado")
 	private Jugador jugador;
 
+	public int getDinero_ofrecido() {
+		return dinero_ofrecido;
+	}
+
+	public void setDinero_ofrecido(int dinero_ofrecido) {
+		this.dinero_ofrecido = dinero_ofrecido;
+	}
+
+	public int getFk_jugador_subastado() {
+		return fk_jugador_subastado;
+	}
+
+	public void setFk_jugador_subastado(int fk_jugador_subastado) {
+		this.fk_jugador_subastado = fk_jugador_subastado;
+	}
+
+	public int getFk_usuario() {
+		return fk_usuario;
+	}
+
+	public void setFk_usuario(int fk_usuario) {
+		this.fk_usuario = fk_usuario;
+	}
+
+	public int getFk_mercado() {
+		return fk_mercado;
+	}
+
+	public void setFk_mercado(int fk_mercado) {
+		this.fk_mercado = fk_mercado;
+	}
+	
+	
+	
+	
+
 }
