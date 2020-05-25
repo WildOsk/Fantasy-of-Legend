@@ -70,6 +70,14 @@ public class Subasta {
 	public void setFk_mercado(int fk_mercado) {
 		this.fk_mercado = fk_mercado;
 	}
+
+	@Override
+	public String toString() {
+		return "Subasta [dinero_ofrecido=" + dinero_ofrecido + ", fk_jugador_subastado=" + fk_jugador_subastado
+				+ ", fk_usuario=" + fk_usuario + "]";
+	}
+
+	
 	
 	
 	

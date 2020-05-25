@@ -224,7 +224,7 @@ public class LigaImpl {
 		}
 	}
 
-	@Scheduled(cron = "0 53 16 * * * ")
+	@Scheduled(cron = "0 57 18 * * * ")
 	@Transactional(propagation = Propagation.NESTED)
 	public void mediaNoche() {
 		Query query = entityManager.createNativeQuery("Select id from Liga");
@@ -238,7 +238,7 @@ public class LigaImpl {
 	@Transactional(propagation = Propagation.NESTED)
 	@PostMapping
 	@RequestMapping("/liga/mercado/{id}")
-	public  List<Jugador> mostrarMercado(@PathVariable Integer id) {
+	public List<Jugador> mostrarMercado(@PathVariable Integer id) {
 		List<Jugador> jugadores = new ArrayList<>();
 		Query query = entityManager.createNativeQuery("Select fk_liga from usuario where id= ?").setParameter(1, id);
 		int resultado = (int) query.getResultList().get(0);
@@ -249,7 +249,7 @@ public class LigaImpl {
 			query = entityManager.createNativeQuery("Select fk_jugador from mercado_jugador where fk_mercado= ?")
 					.setParameter(1, mercado);
 			List<Integer> ids = query.getResultList();
-			for(int i=0; i<ids.size(); i++) {
+			for (int i = 0; i < ids.size(); i++) {
 				Jugador j = jug.findById(ids.get(i)).get();
 				jugadores.add(j);
 			}
@@ -269,21 +269,23 @@ public class LigaImpl {
 			query = entityManager.createNativeQuery("select id from subasta where dinero_ofrecido in "
 					+ "(select max(dinero_ofrecido) from subasta where fk_mercado = ? and fk_jugador_subastado = ?);")
 					.setParameter(1, idMercado).setParameter(2, jugadores.get(i));
-			int resultado = (int) query.getResultList().get(0);
-			query = entityManager.createNativeQuery("select fk_usuario from subasta where id=?").setParameter(1,
-					resultado);
-			int idUsuario = (int) query.getSingleResult();
-			query = entityManager.createNativeQuery("select dinero_ofreciod from subasta where id=?").setParameter(1,
-					resultado);
-			int dineroOfrecido = (int) query.getSingleResult();
-			entityManager.createNativeQuery("INSERT INTO roster_usuario (fk_usuario, fk_jugador) VALUES (?,?)")
-					.setParameter(1, idUsuario).setParameter(2, jugadores.get(i)).executeUpdate();			
-			Usuario u = usu.findById(idUsuario).get();
-			int dineroFinal = u.getDinero() - dineroOfrecido;
-			entityManager.createNativeQuery(
-					"Update Usuario set precio= where id= ?")
-					.setParameter(1, dineroFinal).setParameter(1, u.getId()).executeUpdate();
-			entityManager.close();
+			if (query.getResultList().size() > 0) {
+				int resultado = (int) query.getResultList().get(0);
+				query = entityManager.createNativeQuery("select fk_usuario from subasta where id=?").setParameter(1,
+						resultado);
+				int idUsuario = (int) query.getSingleResult();
+				query = entityManager.createNativeQuery("select dinero_ofrecido from subasta where id=?")
+						.setParameter(1, resultado);
+				int dineroOfrecido = (int) query.getSingleResult();
+				entityManager.createNativeQuery("INSERT INTO roster_usuario (fk_usuario, fk_jugador) VALUES (?,?)")
+						.setParameter(1, idUsuario).setParameter(2, jugadores.get(i)).executeUpdate();
+				query = entityManager.createNativeQuery("select dinero from usuario where id=?").setParameter(1, idUsuario);
+				int dinero = (int) query.getSingleResult();
+				int dineroFinal = dinero - dineroOfrecido;
+				entityManager.createNativeQuery("Update Usuario set dinero= ? where id= ?").setParameter(1, dineroFinal)
+						.setParameter(2, idUsuario).executeUpdate();
+				entityManager.close();
+			}
 		}
 		entityManager.createNativeQuery("DELETE from Subasta where fk_mercado = ?").setParameter(1, idMercado)
 				.executeUpdate();
@@ -293,10 +295,19 @@ public class LigaImpl {
 	@PostMapping
 	@RequestMapping("/liga/mercado/puja")
 	public void pujaHecha(@RequestBody Subasta subasta) {
+		System.out.println(subasta.toString());
+		Query query = entityManager.createNativeQuery("select fk_liga from usuario where id = ?")
+				.setParameter(1, subasta.getFk_usuario());
+		int liga = (int) query.getResultList().get(0);
+		
+		query = entityManager.createNativeQuery("select id from mercado where fk_liga = ?")
+				.setParameter(1, liga);
+		int mercado= (int) query.getResultList().get(0);
+		
 		entityManager
-				.createNativeQuery("Insert from Subasta (dinero_ofrecido,fk_jugador_subastado,fk_usuario, fk_mercado) "
+				.createNativeQuery("Insert into Subasta (dinero_ofrecido,fk_jugador_subastado,fk_usuario, fk_mercado) "
 						+ "values (?,?,?,?)")
 				.setParameter(1, subasta.getDinero_ofrecido()).setParameter(2, subasta.getFk_jugador_subastado())
-				.setParameter(3, subasta.getFk_usuario()).setParameter(4, subasta.getFk_mercado()).executeUpdate();
+				.setParameter(3, subasta.getFk_usuario()).setParameter(4, mercado).executeUpdate();
 	}
 }
