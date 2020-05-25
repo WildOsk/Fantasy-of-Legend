@@ -27,6 +27,7 @@ import com.Petin.FantasyOfLegend.Dao.LigaDao;
 import com.Petin.FantasyOfLegend.Dao.MercadoDao;
 import com.Petin.FantasyOfLegend.Dao.SubastaDao;
 import com.Petin.FantasyOfLegend.Dao.UsuarioDao;
+import com.Petin.FantasyOfLegend.Entity.Jugador;
 import com.Petin.FantasyOfLegend.Entity.Liga;
 import com.Petin.FantasyOfLegend.Entity.Mercado;
 import com.Petin.FantasyOfLegend.Entity.Subasta;
@@ -223,7 +224,7 @@ public class LigaImpl {
 		}
 	}
 
-	@Scheduled(cron = "0 47 16 * * * ")
+	@Scheduled(cron = "0 53 16 * * * ")
 	@Transactional(propagation = Propagation.NESTED)
 	public void mediaNoche() {
 		Query query = entityManager.createNativeQuery("Select id from Liga");
@@ -237,14 +238,22 @@ public class LigaImpl {
 	@Transactional(propagation = Propagation.NESTED)
 	@PostMapping
 	@RequestMapping("/liga/mercado/{id}")
-	public Optional<Mercado> mostrarMercado(@PathVariable Integer id) {
+	public  List<Jugador> mostrarMercado(@PathVariable Integer id) {
+		List<Jugador> jugadores = new ArrayList<>();
 		Query query = entityManager.createNativeQuery("Select fk_liga from usuario where id= ?").setParameter(1, id);
 		int resultado = (int) query.getResultList().get(0);
 		if (resultado != 1) {
 			query = entityManager.createNativeQuery("Select id from mercado where fk_liga= ?").setParameter(1,
 					resultado);
 			int mercado = (int) query.getResultList().get(0);
-			return mer.findById(mercado);
+			query = entityManager.createNativeQuery("Select fk_jugador from mercado_jugador where fk_mercado= ?")
+					.setParameter(1, mercado);
+			List<Integer> ids = query.getResultList();
+			for(int i=0; i<ids.size(); i++) {
+				Jugador j = jug.findById(ids.get(i)).get();
+				jugadores.add(j);
+			}
+			return jugadores;
 		} else {
 			return null;
 		}

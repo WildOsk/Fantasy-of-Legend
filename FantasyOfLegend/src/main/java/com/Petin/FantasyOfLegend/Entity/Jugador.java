@@ -30,6 +30,9 @@ public class Jugador implements Serializable {
 	@Column(name="precio")
 	private int precio;
 	
+	@Column(name="logo")
+	private String logo;
+	
 	@ManyToOne
 	@JoinColumn(name="fk_equipo", insertable = false, updatable = false)
 	private Equipo equipo;

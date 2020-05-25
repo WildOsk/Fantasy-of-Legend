@@ -13,6 +13,7 @@ create table if not exists jugador(
  nombre varchar(40) not null,
  posicion varchar(40) not null,
  precio int not null,
+ logo varchar(300),
  fk_equipo int not null,
  foreign key (fk_equipo) references equipo (id)
 );
@@ -68,7 +69,7 @@ create table if not exists usuario(
  alias varchar(100) not null ,
  contrasena blob not null,
  logo varchar(100) default "../../assets/img/coffee2.jpg",
- dinero int default 30000000,
+ dinero int default 60000000,
  suma_puntuacion int default 0,
  fk_liga int default 1 ,
  foreign key (fk_liga) references liga (id)
