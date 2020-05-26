@@ -134,6 +134,21 @@ public class Jugador implements Serializable {
 		this.subastas = subastas;
 	}
 
+	
+	
+	
+	public String getLogo() {
+		return logo;
+	}
+
+
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -159,6 +174,14 @@ public class Jugador implements Serializable {
 
 	public void setRosterFinal_usuario(Set<Usuario> rosterFinal_usuario) {
 		this.rosterFinal_usuario = rosterFinal_usuario;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Jugador [id=" + id + ", nombre=" + nombre + ", posicion=" + posicion + ", precio=" + precio + ", logo="
+				+ logo + ", equipo=" + equipo + "]";
 	}
 	
 	

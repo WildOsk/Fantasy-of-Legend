@@ -253,6 +253,10 @@ public class LigaImpl {
 				Jugador j = jug.findById(ids.get(i)).get();
 				jugadores.add(j);
 			}
+			for(int i=0;i<jugadores.size(); i++) {
+				System.out.println(jugadores.get(i).toString());
+			}
+			
 			return jugadores;
 		} else {
 			return null;
