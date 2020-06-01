@@ -332,3 +332,26 @@ truncate table tbl_Students;
 #ALTER EVENT Eve_tbl_Students_Temp_Insert DISABLE; 
 #SET GLOBAL event_scheduler = ON;
 
+#cuando se borre un usuario y si no quedan usuarios se borre la liga, se borre el mercado, con el fk de ese jugador
+
+DELIMITER $$
+CREATE TRIGGER check_Usuarios
+    BEFORE DELETE ON usuario
+    FOR EACH ROW 
+		BEGIN
+			IF (select count(id) from usuario where fk_liga in(select id from liga where id in(select fk_liga from mercado)))>0 
+			THEN
+				DELETE FROM usuario WHERE fk_liga in(select id from liga where id in(select fk_liga from mercado));
+			END IF;
+        END;
+ DELIMITER;
+ 
+ 
+     #INSERT INTO usuario (nombre,apellido,correo,alias,contrasena,fk_liga) values ("damiann","suarez","eeee","dam1","123",1);
+     #INSERT INTO liga (nombre,descripcion,codigo) values ("prueba","desc","2345");
+     #INSERT INTO usuario (nombre,apellido,correo,alias,contrasena,fk_liga) values ("damiann1","suarez","eeee","dam12","123",2);
+     
+     #select count(id) from usuario where fk_liga in(select id from liga where id in(select fk_liga from mercado));
+     
+     
+
