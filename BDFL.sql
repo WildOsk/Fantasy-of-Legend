@@ -333,15 +333,17 @@ truncate table tbl_Students;
 #SET GLOBAL event_scheduler = ON;
 
 #cuando se borre un usuario y si no quedan usuarios se borre la liga, se borre el mercado, con el fk de ese jugador
-
+DROP TRIGGER check_Usuarios;
 DELIMITER $$
 CREATE TRIGGER check_Usuarios
     BEFORE DELETE ON usuario
     FOR EACH ROW 
 		BEGIN
-			IF (select count(id) from usuario where fk_liga in(select id from liga where id in(select fk_liga from mercado)))>0 
+			IF (select count(id) from usuario where fk_liga in(select id from liga where id in(select fk_liga from mercado where id in(select fk_mercado from mercado_jugador))))>0 
 			THEN
-				DELETE FROM usuario WHERE fk_liga in(select id from liga where id in(select fk_liga from mercado));
+				DELETE FROM mercado_jugador WHERE fk_mercado in(select id from mercado);
+                DELETE FROM mercado WHERE fk_liga in(select id from liga);
+                DELETE FROM liga WHERE id in(select fk_liga from usuario);
 			END IF;
         END;
  DELIMITER;
@@ -353,5 +355,5 @@ CREATE TRIGGER check_Usuarios
      
      #select count(id) from usuario where fk_liga in(select id from liga where id in(select fk_liga from mercado));
      
-     
+#select count(id) from usuario where fk_liga in(select id from liga where id in(select fk_liga from mercado where id in(select fk_mercado from mercado_jugador)));
 
