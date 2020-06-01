@@ -333,27 +333,26 @@ truncate table tbl_Students;
 #SET GLOBAL event_scheduler = ON;
 
 #cuando se borre un usuario y si no quedan usuarios se borre la liga, se borre el mercado, con el fk de ese jugador
-DROP TRIGGER check_Usuarios;
+
+drop trigger check_Usuarios;
+
 DELIMITER $$
 CREATE TRIGGER check_Usuarios
-    BEFORE DELETE ON usuario
+    AFTER DELETE ON usuario
     FOR EACH ROW 
 		BEGIN
-			IF (select count(id) from usuario where fk_liga in(select id from liga where id in(select fk_liga from mercado where id in(select fk_mercado from mercado_jugador))))>0 
-			THEN
-				DELETE FROM mercado_jugador WHERE fk_mercado in(select id from mercado);
-                DELETE FROM mercado WHERE fk_liga in(select id from liga);
-                DELETE FROM liga WHERE id in(select fk_liga from usuario);
+			declare numero int;
+			IF ((select count(id) from usuario where fk_liga=old.fk_liga)=0) then
+				DELETE FROM mercado_jugador WHERE fk_mercado = (select id from mercado where fk_liga = old.fk_liga);
+                DELETE FROM mercado WHERE fk_liga = old.fk_liga;
+                DELETE FROM liga WHERE id = old.fk_liga;   
+			ELSE
+				SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = "ADIOS";
 			END IF;
-        END;
- DELIMITER;
- 
- 
-     #INSERT INTO usuario (nombre,apellido,correo,alias,contrasena,fk_liga) values ("damiann","suarez","eeee","dam1","123",1);
-     #INSERT INTO liga (nombre,descripcion,codigo) values ("prueba","desc","2345");
-     #INSERT INTO usuario (nombre,apellido,correo,alias,contrasena,fk_liga) values ("damiann1","suarez","eeee","dam12","123",2);
-     
-     #select count(id) from usuario where fk_liga in(select id from liga where id in(select fk_liga from mercado));
-     
-#select count(id) from usuario where fk_liga in(select id from liga where id in(select fk_liga from mercado where id in(select fk_mercado from mercado_jugador)));
+        END$$
 
+
+
+
+
+ 

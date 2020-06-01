@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.persistence.Query;
@@ -30,6 +33,9 @@ public class RestController {
 	
 	@Autowired
 	private EntityManager em;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 	
 	@Autowired
 	private EquipoDao equ;
@@ -75,10 +81,12 @@ public class RestController {
 		return equ.findById(id);
 	}		
 	
-	@GetMapping
+	@Transactional(propagation = Propagation.NESTED)
+	@PostMapping
 	@RequestMapping("/usuarios/{id}")
 	public void banearU(@PathVariable Integer id){
-		usu.deleteById(id);
+		entityManager.createNativeQuery("DELETE from Usuario where id = ?").setParameter(1, id)
+		.executeUpdate();
 	}
 	
 }
