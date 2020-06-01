@@ -1,5 +1,6 @@
 package com.Petin.FantasyOfLegend.Rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,5 +89,21 @@ public class RestController {
 		entityManager.createNativeQuery("DELETE from Usuario where id = ?").setParameter(1, id)
 		.executeUpdate();
 	}
+	
+	
+	@GetMapping
+	@RequestMapping("/equipos/{id}")
+	public List<Jugador> listarJugadoresEquipo(@PathVariable Integer id){
+		Query query = entityManager.createNativeQuery("Select fk_jugador from roster_usuario where fk_usuario = ?").setParameter(1,id);
+		List<Integer> jugadores = query.getResultList();
+		List<Jugador> equipo = new ArrayList<Jugador>();
+		for(int i=0; i<jugadores.size(); i++) {
+			equipo.add(jug.findById(jugadores.get(i)).get());
+		}
+		return equipo;
+	}
+	
+	
+	
 	
 }

@@ -334,7 +334,7 @@ truncate table tbl_Students;
 
 #cuando se borre un usuario y si no quedan usuarios se borre la liga, se borre el mercado, con el fk de ese jugador
 
-drop trigger check_Usuarios;
+#drop trigger check_Usuarios;
 
 DELIMITER $$
 CREATE TRIGGER check_Usuarios
