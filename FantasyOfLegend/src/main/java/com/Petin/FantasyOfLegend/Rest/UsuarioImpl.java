@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.Query;
 
 import com.Petin.FantasyOfLegend.Dao.UsuarioDao;
+import com.Petin.FantasyOfLegend.Entity.Mensaje;
 import com.Petin.FantasyOfLegend.Entity.Usuario;
 
 import net.bytebuddy.dynamic.scaffold.MethodRegistry.Handler.ForImplementation;
@@ -158,6 +159,22 @@ public class UsuarioImpl {
 
 	public String passwordAleatoria() {
 		return RandomStringUtils.randomAlphanumeric(10);
+	}
+	
+	
+	
+	@Transactional(propagation = Propagation.NESTED)
+	@PostMapping
+	@RequestMapping("/usuarios/contacto")
+	public void sendEmail(@RequestBody Mensaje mensaje) {
+
+		SimpleMailMessage email = new SimpleMailMessage();
+
+		email.setTo("petsingame@gmail.com");
+		email.setSubject(mensaje.nombre + " "+ mensaje.apellidos +" ha enviado una duda.");
+		email.setText(mensaje.texto + "\n\n\nCorreo: "+mensaje.correo);
+
+		mailSender.send(email);
 	}
 
 }

@@ -75,13 +75,6 @@ create table if not exists usuario(
  foreign key (fk_liga) references liga (id)
 );
 
-create table if not exists rosterFinal_usuario(
- id int not null auto_increment primary key,
- fk_usuario int not null,
- fk_jugador int not null,
- foreign key (fk_usuario) references usuario (id),
- foreign key (fk_jugador) references jugador (id)
-);
 
 create table if not exists roster_usuario(
  id int not null auto_increment primary key,
@@ -151,7 +144,7 @@ values  ("EXPECT","TOP",15378787,"https://gamepedia.cursecdn.com/lolesports_game
         ("SPECIAL","MID",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/4/48/XL_Special_2019_Split_2.png/220px-XL_Special_2019_Split_2.png?version=d1856ba0c893abe02477994cec4c7fe1",1),
         ("DEADLY","ADC",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/b/b8/VGIA_Deadly_2019_Split_2.png/220px-VGIA_Deadly_2019_Split_2.png?version=f04448d9c142a9c3241e1e3ecaf4d6f1",1),
         ("BOASTER","MID",1000000,"",1),
-        ("YOUNGBACK/MAPACHE","COACH",21818181,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/8/88/FNC_YoungBuck_2019_Split_2.png/220px-FNC_YoungBuck_2019_Split_2.png?version=0820bd34fcfebd2d3073784e98008fc0",1);
+        ("YOUNGBACK","COACH",21818181,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/8/88/FNC_YoungBuck_2019_Split_2.png/220px-FNC_YoungBuck_2019_Split_2.png?version=0820bd34fcfebd2d3073784e98008fc0",1);
 INSERT INTO jugador(nombre,posicion,precio,logo,fk_equipo) 
 values  ("BWIPO","TOP",15511363,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/3/3d/FNC_Bwipo_2020_Split_1.png/220px-FNC_Bwipo_2020_Split_1.png?version=38ceadd53360c6bf7390024f0053b2a0",2),
 		("SELFMADE","JUNGLE",18428030,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/1/14/FNC_Selfmade_2020_Split_1.png/220px-FNC_Selfmade_2020_Split_1.png?version=6268a7c27d45fd5d02c4a78cbe7fce49",2),
@@ -192,7 +185,7 @@ values  ("DAN DAN","TOP",17765151,"https://gamepedia.cursecdn.com/lolesports_gam
         ("DOSS","SUPPORT",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/0/08/MSF.P_Doss_2020_Split_1.png/220px-MSF.P_Doss_2020_Split_1.png?version=f661e9bdf3eb6f54a0fef4f65b410882",4),
         ("ROZARA","JUNGLE",1000000,"https://gamepedia.cursecdn.com/commons_esports_gamepedia_en/thumb/1/1d/Unknown_Infobox_Image_-_Player.png/220px-Unknown_Infobox_Image_-_Player.png?version=636527c64463a523819c337326345d80",4),
         ("DECAY","MID",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/7/71/MSF.P_Decay_2020_Split_1.png/220px-MSF.P_Decay_2020_Split_1.png?version=2343cc1bedfa04ed8baaec6cb33ad42b",4),
-        ("JANDRO/AMAZING","COACH",24357366,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/e/e7/FNCA_Jandro_2019_Split_1.png/220px-FNCA_Jandro_2019_Split_1.png?version=3674747c1c0ab5dfa84793cc64aa4ab9",4);
+        ("JANDRO","COACH",24357366,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/e/e7/FNCA_Jandro_2019_Split_1.png/220px-FNCA_Jandro_2019_Split_1.png?version=3674747c1c0ab5dfa84793cc64aa4ab9",4);
 INSERT INTO jugador(nombre,posicion,precio,logo,fk_equipo) 
 values  ("ALPHARI","TOP",22007575,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/2/2a/OG_Alphari_2020_Split_1.png/220px-OG_Alphari_2020_Split_1.png?version=c902211bac2ac28b71967bc4b2ccabb8",5),
 		("XERXE","JUNGLE",19621212,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/a/ab/OG_Xerxe_2020_Split_1.png/220px-OG_Xerxe_2020_Split_1.png?version=af9737219fea0647cbb4e6067a4d864d",5),
@@ -205,7 +198,7 @@ values  ("ALPHARI","TOP",22007575,"https://gamepedia.cursecdn.com/lolesports_gam
         ("CORVO","ADC",1000000,"https://gamepedia.cursecdn.com/commons_esports_gamepedia_en/thumb/1/1d/Unknown_Infobox_Image_-_Player.png/220px-Unknown_Infobox_Image_-_Player.png?version=636527c64463a523819c337326345d80",5),
         ("BOLY","SUPPORT",1000000,"https://gamepedia.cursecdn.com/commons_esports_gamepedia_en/thumb/1/1d/Unknown_Infobox_Image_-_Player.png/220px-Unknown_Infobox_Image_-_Player.png?version=636527c64463a523819c337326345d80",5),
         ("HIIVA","SUPPORT",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/1/18/MSF_H1IVA_2019_Split_2.png/220px-MSF_H1IVA_2019_Split_2.png?version=12a40f824c4d953161d77ee3d2806930",5),
-        ("GUILHOTO/KAYYS","COACH",27460815,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/0/0f/OG_Guilhoto_2019_Split_2.png/220px-OG_Guilhoto_2019_Split_2.png?version=15fcbb517443b70fb631b66f8867f363",5);
+        ("GUILHOTO","COACH",27460815,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/0/0f/OG_Guilhoto_2019_Split_2.png/220px-OG_Guilhoto_2019_Split_2.png?version=15fcbb517443b70fb631b66f8867f363",5);
 INSERT INTO jugador(nombre,posicion,precio,logo,fk_equipo) 
 values  ("FINN","TOP",17234848,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/8/87/RGE_Finn_2020_Split_1.png/220px-RGE_Finn_2020_Split_1.png?version=a71d366cac90737cb8087f9441466b57",6),
 		("INSPIRED","JUNGLE",18030303,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/a/ad/RGE_Inspired_2020_Split_1.png/220px-RGE_Inspired_2020_Split_1.png?version=6d4e12e6a93c6ab17db370bebc1361d5",6),
@@ -218,7 +211,7 @@ values  ("FINN","TOP",17234848,"https://gamepedia.cursecdn.com/lolesports_gamepe
         ("WOOLITE","ADC",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/b/b9/RGO_Woolite_2020_Split_1.png?version=034209d2c56f33c476a43a4ce793fa06",6),
         ("MYSTIQUES","SUPPORT",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/c/c9/RGO_Mystiques_2020_Split_1.png?version=1d9dd50d3f7c890056105cf06073fd50",6),
         ("BLUEKNIGHT","MID",1000000,"https://gamepedia.cursecdn.com/commons_esports_gamepedia_en/thumb/1/1d/Unknown_Infobox_Image_-_Player.png/220px-Unknown_Infobox_Image_-_Player.png?version=636527c64463a523819c337326345d80",6),
-        ("BLUMIGAN/FREDY122","COACH",27648902,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/d/d3/REC_Blumigan_2019_Split_1.png/220px-REC_Blumigan_2019_Split_1.png?version=4374e7044dc146d2868a88c4e34c1b6e",6);
+        ("BLUMIGAN","COACH",27648902,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/d/d3/REC_Blumigan_2019_Split_1.png/220px-REC_Blumigan_2019_Split_1.png?version=4374e7044dc146d2868a88c4e34c1b6e",6);
 INSERT INTO jugador(nombre,posicion,precio,logo,fk_equipo) 
 values  ("ODOAMNE","TOP",14981061,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/e/e8/S04_Odoamne_2020_Split_1.png/220px-S04_Odoamne_2020_Split_1.png?version=5f36495bea96a46a250da59627880bf6",7),
 		("GILIUS","JUNGLE",4375000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/5/5e/S04_Gilius_2020_Split_1.png/220px-S04_Gilius_2020_Split_1.png?version=d7150d9fa41ef12a9004da60404f4533",7),
@@ -232,7 +225,7 @@ values  ("ODOAMNE","TOP",14981061,"https://gamepedia.cursecdn.com/lolesports_gam
         ("NEON","ADC",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/3/34/S04E_Neon_2020_Split_1.png/220px-S04E_Neon_2020_Split_1.png?version=448be5136109d54ff61b87506f68cf08",7),
         ("SIRNUKESALOT","SUPPORT",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/8/83/S04E_SirNukesAlot_2020_Split_1.png/220px-S04E_SirNukesAlot_2020_Split_1.png?version=a7825d63b43e20bbb70e97b8a247397a",7),
         ("KAMITO","ADC",1000000,"https://gamepedia.cursecdn.com/commons_esports_gamepedia_en/thumb/1/1d/Unknown_Infobox_Image_-_Player.png/220px-Unknown_Infobox_Image_-_Player.png?version=636527c64463a523819c337326345d80",7),
-        ("DYLAN FALCO","COACH",10438871,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/5/5c/S04_Dylan_Falco_2019_Split_2.png/220px-S04_Dylan_Falco_2019_Split_2.png?version=8e1ac131294a2b2cd9339728c14e5834",7);
+        ("FALCO","COACH",10438871,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/5/5c/S04_Dylan_Falco_2019_Split_2.png/220px-S04_Dylan_Falco_2019_Split_2.png?version=8e1ac131294a2b2cd9339728c14e5834",7);
 INSERT INTO jugador(nombre,posicion,precio,logo,fk_equipo) 
 values  ("SACRE","TOP",8087121,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/6/65/SK_Sacre_2020_Split_1.png/220px-SK_Sacre_2020_Split_1.png?version=6a895b545849d18633b3c2a804bb73e4",8),
 		("TRICK","JUNGLE",8352273,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/8/84/SK_Trick_2020_Split_1.png/220px-SK_Trick_2020_Split_1.png?version=b9d3997fd250089116712fad85e5059b",8),
@@ -245,7 +238,7 @@ values  ("SACRE","TOP",8087121,"https://gamepedia.cursecdn.com/lolesports_gamepe
         ("TIGER","ADC",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/4/47/SKP_Tiger_2020_Split_1.png/220px-SKP_Tiger_2020_Split_1.png?version=f25d373e9222cdcbb3fbf0febea99051",8),
         ("TRYMBI","SUPPORT",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/e/e1/SKP_Trymbi_2020_Split_1.png/220px-SKP_Trymbi_2020_Split_1.png?version=5e5a10e24c387e4d133b5baeedc809f8",8),
         ("BERTHO","SUPPORT",1000000,"https://gamepedia.cursecdn.com/commons_esports_gamepedia_en/thumb/1/1d/Unknown_Infobox_Image_-_Player.png/220px-Unknown_Infobox_Image_-_Player.png?version=636527c64463a523819c337326345d80",8),
-        ("UNLIMITED/KANANI","COACH",12319749,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/8/82/XLA_Unlimited_2019_Split_1.png/220px-XLA_Unlimited_2019_Split_1.png?version=6b8f80c10a6d951c2977ebb849bc8819",8);
+        ("UNLIMITED","COACH",12319749,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/8/82/XLA_Unlimited_2019_Split_1.png/220px-XLA_Unlimited_2019_Split_1.png?version=6b8f80c10a6d951c2977ebb849bc8819",8);
 INSERT INTO jugador(nombre,posicion,precio,logo,fk_equipo) 
 values  ("OROME","TOP",14981061,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/7/7c/MAD_Orome_2020_Split_1.png/220px-MAD_Orome_2020_Split_1.png?version=6e5b8a155f48827d089b99082efac7f7",9),
 		("SHADOW","JUNGLE",17897727,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/f/fb/MAD_Shadow_2020_Split_1.png/220px-MAD_Shadow_2020_Split_1.png?version=8bebeb00f489899d4c439c644e90ec59",9),
@@ -258,7 +251,7 @@ values  ("OROME","TOP",14981061,"https://gamepedia.cursecdn.com/lolesports_gamep
         ("FLAKKED","ADC",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/c/c7/MAD_Flakked_2020_Split_1.png/220px-MAD_Flakked_2020_Split_1.png?version=58820f1985e8d4fa3242d4ac5d09ca52",9),
         ("PRIME","SUPPORT",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/5/51/MAD_Prime_2020_Split_1.png/220px-MAD_Prime_2020_Split_1.png?version=1a6f7dadefd91240ede0f0b9de2b65b7",9),
         ("FALCO","SUPPORT",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/3/33/MAD_Falco_2020_Split_1.png/220px-MAD_Falco_2020_Split_1.png?version=c35c94f6ec2ad5e8e0cd26cf2420a506",9),
-        ("MAC/KAAS","COACH",27460815,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/2/2a/SPY_Mac.jpg/220px-SPY_Mac.jpg?version=57a61c59427afc7c1b5e4d15187533e6",9);
+        ("MAC","COACH",27460815,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/2/2a/SPY_Mac.jpg/220px-SPY_Mac.jpg?version=57a61c59427afc7c1b5e4d15187533e6",9);
 INSERT INTO jugador(nombre,posicion,precio,logo,fk_equipo) 
 values  ("CABOCHARD","TOP",8352273,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/4/4c/VIT_Cabochard_2020_Split_1.png/220px-VIT_Cabochard_2020_Split_1.png?version=f794390801faf0b3aaf26ce1fdaec700",10),
 		("SKEANZ","JUNGLE",9810606,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/6/60/VIT_Skeanz_2020_Split_1.png/220px-VIT_Skeanz_2020_Split_1.png?version=fb91fb2805b9103b96087b9f418d9044",10),
@@ -273,7 +266,7 @@ values  ("CABOCHARD","TOP",8352273,"https://gamepedia.cursecdn.com/lolesports_ga
         ("STEEELBACK","SUPPORT",1856061,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/6/6f/VIT.B_Steeelback_2020_Split_1.png/220px-VIT.B_Steeelback_2020_Split_1.png?version=47bb23cfe4a412590aea1c7d30f458ec",10),
         ("KREPO","SUPPORT",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/e/ef/El-krepo-2015spring.jpg/220px-El-krepo-2015spring.jpg?version=ca40d0a595e665fd9e4935aa334cdb3a",10),
         ("XANI","JUNGLE",1000000,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/3/3e/Xani.jpg/220px-Xani.jpg?version=5c15187cc8ec68670aa822d8c3e2e5d7",10),
-        ("DUKE/MEPHISTO","COACH",6771160,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/4/40/SPY_Duke_2019_Split_2.png/220px-SPY_Duke_2019_Split_2.png?version=9fbf1564b02ffa2f7f9db0e2574ebc1d",10);
+        ("DUKE","COACH",6771160,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/4/40/SPY_Duke_2019_Split_2.png/220px-SPY_Duke_2019_Split_2.png?version=9fbf1564b02ffa2f7f9db0e2574ebc1d",10);
        
 INSERT INTO jornada (fecha)
 values("2020-06-12 18:00:00"),

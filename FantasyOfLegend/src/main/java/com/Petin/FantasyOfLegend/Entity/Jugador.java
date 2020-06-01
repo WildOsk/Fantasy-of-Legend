@@ -45,9 +45,6 @@ public class Jugador implements Serializable {
 	@ManyToMany(cascade = {CascadeType.ALL},mappedBy="jugadores_roster_usuario")
 	private Set<Usuario> jugadores_roster_usuario=new HashSet<>();
 	
-	@JsonIgnore
-	@ManyToMany(cascade = {CascadeType.ALL},mappedBy="rosterFinal_usuario")
-	private Set<Usuario> rosterFinal_usuario=new HashSet<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="fk_jugador_subastado", cascade=CascadeType.ALL)
@@ -166,15 +163,6 @@ public class Jugador implements Serializable {
 
 
 
-	public Set<Usuario> getRosterFinal_usuario() {
-		return rosterFinal_usuario;
-	}
-
-
-
-	public void setRosterFinal_usuario(Set<Usuario> rosterFinal_usuario) {
-		this.rosterFinal_usuario = rosterFinal_usuario;
-	}
 
 
 

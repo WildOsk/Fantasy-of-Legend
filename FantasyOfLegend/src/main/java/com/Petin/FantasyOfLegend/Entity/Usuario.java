@@ -67,11 +67,6 @@ public class Usuario implements Serializable {
 	@ManyToMany(cascade = {CascadeType.ALL})
 	 @JoinTable(name="roster_usuario", joinColumns={@JoinColumn(name="fk_usuario")}, inverseJoinColumns={@JoinColumn(name="fk_jugador")})
 	 private Set<Jugador> jugadores_roster_usuario=new HashSet();
-	
-	@JsonIgnore
-	@ManyToMany(cascade = {CascadeType.ALL})
-	 @JoinTable(name="rosterFinal_usuario", joinColumns={@JoinColumn(name="fk_usuario")}, inverseJoinColumns={@JoinColumn(name="fk_jugador")})
-	 private Set<Jugador> rosterFinal_usuario=new HashSet();
 
 	public Usuario() {
 		
@@ -202,14 +197,6 @@ public class Usuario implements Serializable {
 
 	public void setJugadores_roster_usuario(Set<Jugador> jugadores_roster_usuario) {
 		this.jugadores_roster_usuario = jugadores_roster_usuario;
-	}
-
-	public Set<Jugador> getRosterFinal_usuario() {
-		return rosterFinal_usuario;
-	}
-
-	public void setRosterFinal_usuario(Set<Jugador> rosterFinal_usuario) {
-		this.rosterFinal_usuario = rosterFinal_usuario;
 	}
 
 	@Override

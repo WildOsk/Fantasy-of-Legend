@@ -17,10 +17,12 @@ import javax.persistence.Query;
 import com.Petin.FantasyOfLegend.Dao.EquipoDao;
 import com.Petin.FantasyOfLegend.Dao.JornadaDao;
 import com.Petin.FantasyOfLegend.Dao.JugadoresDao;
+import com.Petin.FantasyOfLegend.Dao.UsuarioDao;
 import com.Petin.FantasyOfLegend.Entity.Equipo;
 import com.Petin.FantasyOfLegend.Entity.Jornada;
 import com.Petin.FantasyOfLegend.Entity.Jugador;
 import com.Petin.FantasyOfLegend.Entity.Partido;
+import com.Petin.FantasyOfLegend.Entity.Usuario;
 
 @org.springframework.web.bind.annotation.RestController
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET})
@@ -35,11 +37,19 @@ public class RestController {
 	private JugadoresDao jug;
 	@Autowired
 	private JornadaDao jor;
+	@Autowired
+	private UsuarioDao usu;
 	
 	@GetMapping
 	@RequestMapping("/equipos")
 	public List<Equipo> listarE(){
 		return equ.findAll();
+	}
+	
+	@GetMapping
+	@RequestMapping("/usuarios")
+	public List<Usuario> listarU(){
+		return usu.findAll();
 	}
 	
 	@Transactional
@@ -64,5 +74,11 @@ public class RestController {
 	public Optional<Equipo> mostrar(@PathVariable Integer id){
 		return equ.findById(id);
 	}		
+	
+	@GetMapping
+	@RequestMapping("/usuarios/{id}")
+	public void banearU(@PathVariable Integer id){
+		usu.deleteById(id);
+	}
 	
 }
