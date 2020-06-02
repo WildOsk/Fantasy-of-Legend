@@ -47,20 +47,23 @@ public class UsuarioImpl {
 	@Transactional
 	@PostMapping
 	@RequestMapping("/usuarios/insert")
-	public boolean insert(@RequestBody Usuario usuario) {
+	public String[] insert(@RequestBody Usuario usuario) {
 		System.out.println(usuario.toString());
+		String[] mensaje = new String[1];
 		boolean existe = false;
 		Query query = entityManager.createNativeQuery("Select id from usuario where alias= ?").setParameter(1,
 				usuario.getAlias());
 		List<Integer> resultList = query.getResultList();
 		if (resultList.size() > 0) {
-			return false;
+			mensaje[0]="alias";
+			return mensaje;
 		} else {
 			query = entityManager.createNativeQuery("Select id from usuario where correo= ?").setParameter(1,
 					usuario.getCorreo());
 			resultList = query.getResultList();
 			if (resultList.size() > 0) {
-				return false;
+				mensaje[0]="correo";
+				return mensaje;
 			} else {
 				System.out.println(usuario);
 				entityManager.createNativeQuery(
@@ -70,7 +73,8 @@ public class UsuarioImpl {
 						.setParameter(5, usuario.getContrasena()).setParameter(6, usuario.getLogo()).executeUpdate();
 				entityManager.close();
 			}
-			return true;
+			mensaje[0]="bien";
+			return mensaje;
 		}
 	}
 

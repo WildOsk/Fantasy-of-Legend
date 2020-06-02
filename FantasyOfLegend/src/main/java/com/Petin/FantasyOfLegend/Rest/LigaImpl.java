@@ -224,7 +224,7 @@ public class LigaImpl {
 		}
 	}
 
-	@Scheduled(cron = "0 17 18 * * * ")
+	@Scheduled(cron = "0 00 00 * * * ")
 	@Transactional(propagation = Propagation.NESTED)
 	public void mediaNoche() {
 		Query query = entityManager.createNativeQuery("Select id from Liga");
