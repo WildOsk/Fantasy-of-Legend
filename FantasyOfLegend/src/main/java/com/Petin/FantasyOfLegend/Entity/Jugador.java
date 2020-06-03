@@ -30,11 +30,12 @@ public class Jugador implements Serializable {
 	@Column(name="precio")
 	private int precio;
 	
+	@Column(name="logo")
+	private String logo;
+	
 	@Column(name="puntuacion_total")
 	private int puntuacionTotal;
 
-	@Column(name="logo")
-	private String logo;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_equipo", insertable = false, updatable = false)
