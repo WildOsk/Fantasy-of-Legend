@@ -30,7 +30,7 @@ public class Jugador implements Serializable {
 	@Column(name="precio")
 	private int precio;
 	
-	@Column(name="puntuacionTotal")
+	@Column(name="puntuacion_total")
 	private int puntuacionTotal;
 
 	@Column(name="logo")

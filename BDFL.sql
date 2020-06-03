@@ -14,7 +14,7 @@ create table if not exists jugador(
  posicion varchar(40) not null,
  precio int not null,
  logo varchar(300),
- puntuacionTotal int default 0,
+ puntuacion_total int default 0,
  fk_equipo int not null,
  foreign key (fk_equipo) references equipo (id)
 );
@@ -331,7 +331,7 @@ CREATE TRIGGER puntuacion
     AFTER insert ON puntuacion_jugador
     FOR EACH ROW 
 		BEGIN
-			UPDATE jugador SET puntuacionTotal = puntuacionTotal + new.puntuacion WHERE id = new.fk_jugador;
+			UPDATE jugador SET puntuacion_total = puntuacion_total + new.puntuacion WHERE id = new.fk_jugador;
         END$$       
         
         
