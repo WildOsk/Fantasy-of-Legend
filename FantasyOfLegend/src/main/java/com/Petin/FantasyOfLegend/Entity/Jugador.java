@@ -30,6 +30,9 @@ public class Jugador implements Serializable {
 	@Column(name="precio")
 	private int precio;
 	
+	@Column(name="puntuacionTotal")
+	private int puntuacionTotal;
+
 	@Column(name="logo")
 	private String logo;
 	
@@ -37,9 +40,6 @@ public class Jugador implements Serializable {
 	@JoinColumn(name="fk_equipo", insertable = false, updatable = false)
 	private Equipo equipo;
 	
-	@JsonIgnore
-	@ManyToMany(cascade = {CascadeType.ALL},mappedBy="jugadores")
-	private Set<Puntuacion> puntuaciones=new HashSet<>();
 	
 	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.ALL},mappedBy="jugadores_roster_usuario")
@@ -54,14 +54,16 @@ public class Jugador implements Serializable {
 		
 	}
 	
-	
 
-	public Jugador(int id, String nombre, String posicion, int precio, Equipo equipo) {
+	public Jugador(int id, String nombre, String posicion, int precio, int puntuacionTotal, String logo,
+			Equipo equipo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.posicion = posicion;
 		this.precio = precio;
+		this.puntuacionTotal = puntuacionTotal;
+		this.logo = logo;
 		this.equipo = equipo;
 	}
 
@@ -115,13 +117,7 @@ public class Jugador implements Serializable {
 		this.equipo = equipo;
 	}
 
-	public Set<Puntuacion> getPuntuaciones() {
-		return puntuaciones;
-	}
-
-	public void setPuntuaciones(Set<Puntuacion> puntuaciones) {
-		this.puntuaciones = puntuaciones;
-	}
+	
 
 	public Set<Subasta> getSubastas() {
 		return subastas;
@@ -163,7 +159,15 @@ public class Jugador implements Serializable {
 
 
 
+	public int getPuntuacionTotal() {
+		return puntuacionTotal;
+	}
 
+
+
+	public void setPuntuacionTotal(int puntuacionTotal) {
+		this.puntuacionTotal = puntuacionTotal;
+	}
 
 
 	@Override

@@ -14,6 +14,7 @@ create table if not exists jugador(
  posicion varchar(40) not null,
  precio int not null,
  logo varchar(300),
+ puntuacionTotal int default 0,
  fk_equipo int not null,
  foreign key (fk_equipo) references equipo (id)
 );
@@ -27,29 +28,21 @@ create table if not exists partido(
  id int not null auto_increment primary key,
  e_local int not null,
  e_visitante int not null,
- resultado varchar(100) default "0-0",
+ resultado varchar(100) default "No se ha jugado todavia",
  fk_jornada int not null,
  foreign key (fk_jornada) references jornada (id),
  foreign key (e_local) references equipo(id),
  foreign key (e_visitante) references equipo(id)
 );
 
-create table if not exists puntuacion(
- id int not null auto_increment primary key,
- puntuacionTotal int default 0,
- fk_partido int not null,
- foreign key (fk_partido) references partido (id)
-);
-
 create table if not exists puntuacion_jugador(
  id int not null auto_increment primary key,
- fk_puntuacion int not null,
+ fk_partido int not null,
  fk_jugador int not null,
- foreign key (fk_puntuacion) references puntuacion (id),
+ puntuacion int default 0,
+ foreign key (fk_partido) references partido(id),
  foreign key (fk_jugador) references jugador (id)
 );
-
-
 
 create table if not exists liga(
  id int not null auto_increment primary key,
@@ -128,6 +121,8 @@ values("EXCEL","https://gamepedia.cursecdn.com/lolesports_gamepedia_en/8/85/Exce
 ("SK","https://esports.clashroyale.com/uploaded-images/sk_logo.png?mtime=20190531212514"),
 ("MAD LIONS","https://www.giantsgaming.pro/wp-content/uploads/2019/05/600px-MAD_Lionslogo_profile.png"),
 ("VITALITY","https://images.prismic.io/rivalryglhf/ee46659e6ccb4e4d7dab39d05ca09176b6390ed7_team-vitality-lcs-league-of-legends.png?auto=compress,format");
+
+
 
 
 #INSERTS DE JUGADORES EN LA TABLA JUGADOR 
@@ -273,22 +268,22 @@ values("2020-06-12 18:00:00"),
 ("2020-06-13 17:00:00"),
 ("2020-06-14 17:00:00");
 
-INSERT INTO partido(e_local,e_visitante,fk_jornada)
-values(9,3,1),
-(10,7,1),
-(5,8,1),
-(6,1,1),
-(4,2,1),
-(7,8,2),
-(6,4,2),
-(1,9,2),
-(2,10,2),
-(3,5,2),
-(8,9,3),
-(7,6,3),
-(5,4,3),
-(3,10,3),
-(2,1,3);
+INSERT INTO partido(e_local,e_visitante,fk_jornada, resultado)
+values(9,3,1, "https://www.giantsgaming.pro/wp-content/uploads/2019/05/600px-MAD_Lionslogo_profile.png"),
+(10,7,1, "https://upload.wikimedia.org/wikipedia/commons/9/97/FC_Schalke_04_Logo.png"),
+(5,8,1,"https://gamepedia.cursecdn.com/lolesports_gamepedia_en/1/12/Origenlogo_square.png"),
+(6,1,1, "https://gamepedia.cursecdn.com/lolesports_gamepedia_en/8/85/Excel_Esportslogo_profile.png"),
+(4,2,1,"https://i.blogs.es/d06c20/misfits-8fnvxt30/1366_2000.png"),
+(7,8,2,"http://pngimg.com/uploads/hourglass/hourglass_PNG50.png"),
+(6,4,2,"http://pngimg.com/uploads/hourglass/hourglass_PNG50.png"),
+(1,9,2,"http://pngimg.com/uploads/hourglass/hourglass_PNG50.png"),
+(2,10,2,"http://pngimg.com/uploads/hourglass/hourglass_PNG50.png"),
+(3,5,2,"http://pngimg.com/uploads/hourglass/hourglass_PNG50.png"),
+(8,9,3,"http://pngimg.com/uploads/hourglass/hourglass_PNG50.png"),
+(7,6,3,"http://pngimg.com/uploads/hourglass/hourglass_PNG50.png"),
+(5,4,3,"http://pngimg.com/uploads/hourglass/hourglass_PNG50.png"),
+(3,10,3,"http://pngimg.com/uploads/hourglass/hourglass_PNG50.png"),
+(2,1,3,"http://pngimg.com/uploads/hourglass/hourglass_PNG50.png");
 
 create or replace view num_posiciones
 as select count(posicion) as "Total de supports", 
@@ -312,26 +307,6 @@ from jugador where precio >20000000;
 SELECT * from num_posiciones;
 select * from jug_valores;
 
-
-#PRUEBAS
-
-CREATE TABLE tbl_Students 
-(
-	StudID INT 
-    ,StudName VARCHAR(50)
-);
-SHOW PROCESSLIST;
-
-CREATE EVENT Eve_tbl_Students_Temp_Insert
-ON SCHEDULE EVERY 1 MINUTE
-DO
-  INSERT INTO tbl_Students 
-  VALUES (1,'Anvesh');
-  
-truncate table tbl_Students;
-#ALTER EVENT Eve_tbl_Students_Temp_Insert DISABLE; 
-#SET GLOBAL event_scheduler = ON;
-
 #cuando se borre un usuario y si no quedan usuarios se borre la liga, se borre el mercado, con el fk de ese jugador
 
 #drop trigger check_Usuarios;
@@ -350,9 +325,31 @@ CREATE TRIGGER check_Usuarios
 				SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = "ADIOS";
 			END IF;
         END$$
+        
+  DELIMITER $$
+CREATE TRIGGER puntuacion
+    AFTER insert ON puntuacion_jugador
+    FOR EACH ROW 
+		BEGIN
+			UPDATE jugador SET puntuacionTotal = puntuacionTotal + new.puntuacion WHERE id = new.fk_jugador;
+        END$$       
+        
+        
+insert into puntuacion_jugador(fk_partido,fk_jugador, puntuacion) values
+(1,100,12),(1,101,5),(1,102,8),(1,103,1),(1,107,23),(1,108,15),(1,109,10),(1,110,11),(1,111,15),
+(1,25,14),(1,26,15),(1,27,22),(1,28,12),(1,29,5),(1,30,2),(1,31,30),(1,32,3),(1,33,10),(1,34,7),(1,35,1),(1,36,7),(1,37,4),
+
+(2,112,12),(2,113,5),(2,114,8),(2,115,1),(2,116,23),(2,117,15),(2,118,10),(2,119,11),(2,120,2),(2,121,30),(2,122,3),(2,123,10),(2,124,7),(2,125,15),
+(2,75,14),(2,76,15),(2,77,22),(2,78,12),(2,79,5),(2,80,2),(2,81,30),(2,82,3),(2,83,10),(2,84,7),(2,85,1),(2,86,7),(2,87,4),
+
+(3,51,12),(3,52,5),(3,53,8),(3,54,1),(3,55,23),(3,56,15),(3,57,10),(3,58,11),(3,59,15),(3,60,2),(3,61,30),(3,62,3),
+(3,88,14),(3,89,15),(3,90,22),(3,91,12),(3,92,5),(3,93,2),(3,94,30),(3,95,3),(3,96,10),(3,97,7),(3,98,1),(3,99,4),
+
+(4,63,12),(4,64,5),(4,65,8),(4,66,1),(4,67,23),(4,68,15),(4,69,10),(4,70,11),(4,71,30),(4,72,3),(4,73,10),(4,74,15),
+(4,1,14),(4,2,15),(4,3,22),(4,4,12),(4,5,5),(4,6,2),(4,7,30),(4,8,3),(4,9,10),(4,10,7),(4,11,1),(4,12,4),
+
+(5,38,12),(5,39,5),(5,40,8),(5,41,1),(5,42,23),(5,43,15),(5,44,10),(5,45,11),(5,46,5),(5,47,2),(5,48,30),(5,49,3),(5,50,15),
+(5,13,14),(5,14,15),(5,15,22),(5,16,12),(5,17,5),(5,18,2),(5,19,30),(5,20,3),(5,21,10),(5,22,7),(5,23,1),(5,24,7);
 
 
 
-
-
- 

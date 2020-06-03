@@ -39,9 +39,6 @@ public class Partido implements Serializable {
 	@JoinColumn(name="fk_jornada",insertable = false, updatable = false)
 	private Jornada jornada;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="partido", cascade=CascadeType.ALL)
-	private Set<Puntuacion> puntuaciones;
 
 	public Partido() {
 		
@@ -95,13 +92,6 @@ public class Partido implements Serializable {
 		this.jornada = jornada;
 	}
 
-	public Set<Puntuacion> getPuntuaciones() {
-		return puntuaciones;
-	}
-
-	public void setPuntuaciones(Set<Puntuacion> puntuaciones) {
-		this.puntuaciones = puntuaciones;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
