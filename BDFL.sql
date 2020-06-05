@@ -101,14 +101,6 @@ create table if not exists subasta(
  foreign key (fk_usuario) references usuario (id)
 );
 
-#MAÑANA
-#1 PROCEDURES Y FUNCIONES BUSCARLAS
-#2 TODOS LOS INSERTS NECESARIOS Y VISTAS (10 TABLAS)
-#3 ECHAR UN VISTAZO A LOS AMIGOS
-#4 TRIGGERS
-#5 BUSCAR INFORMACION SOBRE MAVEN Y DEMAS TECNOLOGIAS PARA CREAR UN PROYECTO
-
-
 #INSERTS DE EQUIPOS EN LA TABLA EQUIPOS
 INSERT INTO equipo (nombre,logo)
 values("EXCEL","https://gamepedia.cursecdn.com/lolesports_gamepedia_en/8/85/Excel_Esportslogo_profile.png"),
